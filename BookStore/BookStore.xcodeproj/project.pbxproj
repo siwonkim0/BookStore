@@ -14,6 +14,14 @@
 		EA4823BE28D87465007ED9B4 /* BookStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823BD28D87465007ED9B4 /* BookStoreTests.swift */; };
 		EA4823C828D87465007ED9B4 /* BookStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823C728D87465007ED9B4 /* BookStoreUITests.swift */; };
 		EA4823CA28D87465007ED9B4 /* BookStoreUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823C928D87465007ED9B4 /* BookStoreUITestsLaunchTests.swift */; };
+		EA4823D928D87536007ED9B4 /* URLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823D828D87536007ED9B4 /* URLSessionManager.swift */; };
+		EA4823DB28D87570007ED9B4 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823DA28D87570007ED9B4 /* URLSessionProtocol.swift */; };
+		EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823DC28D875B1007ED9B4 /* NetworkRequest.swift */; };
+		EA4823E028D875CF007ED9B4 /* httpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823DF28D875CF007ED9B4 /* httpMethod.swift */; };
+		EA4823E228D875F0007ED9B4 /* URLSessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823E128D875F0007ED9B4 /* URLSessionError.swift */; };
+		EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823E528D876E3007ED9B4 /* SearchRequest.swift */; };
+		EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823E828D8776A007ED9B4 /* BookListDTO.swift */; };
+		EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823EA28D8779B007ED9B4 /* BookStoreURLHost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +52,14 @@
 		EA4823C328D87465007ED9B4 /* BookStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4823C728D87465007ED9B4 /* BookStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITests.swift; sourceTree = "<group>"; };
 		EA4823C928D87465007ED9B4 /* BookStoreUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EA4823D828D87536007ED9B4 /* URLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionManager.swift; sourceTree = "<group>"; };
+		EA4823DA28D87570007ED9B4 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		EA4823DC28D875B1007ED9B4 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		EA4823DF28D875CF007ED9B4 /* httpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httpMethod.swift; sourceTree = "<group>"; };
+		EA4823E128D875F0007ED9B4 /* URLSessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionError.swift; sourceTree = "<group>"; };
+		EA4823E528D876E3007ED9B4 /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
+		EA4823E828D8776A007ED9B4 /* BookListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListDTO.swift; sourceTree = "<group>"; };
+		EA4823EA28D8779B007ED9B4 /* BookStoreURLHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreURLHost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +110,7 @@
 		EA4823AB28D87465007ED9B4 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				EA4823D628D87516007ED9B4 /* Network */,
 				EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */,
 				EA4823AE28D87465007ED9B4 /* ContentView.swift */,
 				EA4823B028D87465007ED9B4 /* Assets.xcassets */,
@@ -125,6 +142,62 @@
 				EA4823C928D87465007ED9B4 /* BookStoreUITestsLaunchTests.swift */,
 			);
 			path = BookStoreUITests;
+			sourceTree = "<group>";
+		};
+		EA4823D628D87516007ED9B4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823E728D87757007ED9B4 /* DTO */,
+				EA4823E428D876D3007ED9B4 /* Request */,
+				EA4823E328D875F9007ED9B4 /* Error */,
+				EA4823DE28D875C2007ED9B4 /* Support */,
+				EA4823D828D87536007ED9B4 /* URLSessionManager.swift */,
+				EA4823D728D87524007ED9B4 /* Interface */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		EA4823D728D87524007ED9B4 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823DA28D87570007ED9B4 /* URLSessionProtocol.swift */,
+				EA4823DC28D875B1007ED9B4 /* NetworkRequest.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		EA4823DE28D875C2007ED9B4 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823DF28D875CF007ED9B4 /* httpMethod.swift */,
+				EA4823EA28D8779B007ED9B4 /* BookStoreURLHost.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		EA4823E328D875F9007ED9B4 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823E128D875F0007ED9B4 /* URLSessionError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		EA4823E428D876D3007ED9B4 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823E528D876E3007ED9B4 /* SearchRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		EA4823E728D87757007ED9B4 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823E828D8776A007ED9B4 /* BookListDTO.swift */,
+			);
+			name = DTO;
+			path = "ㅇ썌";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +330,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4823E228D875F0007ED9B4 /* URLSessionError.swift in Sources */,
+				EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */,
+				EA4823E028D875CF007ED9B4 /* httpMethod.swift in Sources */,
+				EA4823DB28D87570007ED9B4 /* URLSessionProtocol.swift in Sources */,
+				EA4823D928D87536007ED9B4 /* URLSessionManager.swift in Sources */,
 				EA4823AF28D87465007ED9B4 /* ContentView.swift in Sources */,
+				EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */,
+				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,
+				EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
