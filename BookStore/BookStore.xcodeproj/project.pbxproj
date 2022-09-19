@@ -22,6 +22,8 @@
 		EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823E528D876E3007ED9B4 /* SearchRequest.swift */; };
 		EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823E828D8776A007ED9B4 /* BookListDTO.swift */; };
 		EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823EA28D8779B007ED9B4 /* BookStoreURLHost.swift */; };
+		EA4823EE28D87B4E007ED9B4 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823ED28D87B4E007ED9B4 /* SearchRepository.swift */; };
+		EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823F028D87B70007ED9B4 /* SearchRepositoryType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		EA4823E528D876E3007ED9B4 /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
 		EA4823E828D8776A007ED9B4 /* BookListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListDTO.swift; sourceTree = "<group>"; };
 		EA4823EA28D8779B007ED9B4 /* BookStoreURLHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreURLHost.swift; sourceTree = "<group>"; };
+		EA4823ED28D87B4E007ED9B4 /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		EA4823F028D87B70007ED9B4 /* SearchRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 		EA4823AB28D87465007ED9B4 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				EA4823EF28D87B62007ED9B4 /* Domain */,
+				EA4823EC28D87B29007ED9B4 /* Repository */,
 				EA4823D628D87516007ED9B4 /* Network */,
 				EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */,
 				EA4823AE28D87465007ED9B4 /* ContentView.swift */,
@@ -151,8 +157,8 @@
 				EA4823E428D876D3007ED9B4 /* Request */,
 				EA4823E328D875F9007ED9B4 /* Error */,
 				EA4823DE28D875C2007ED9B4 /* Support */,
-				EA4823D828D87536007ED9B4 /* URLSessionManager.swift */,
 				EA4823D728D87524007ED9B4 /* Interface */,
+				EA4823D828D87536007ED9B4 /* URLSessionManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -198,6 +204,30 @@
 			);
 			name = DTO;
 			path = "ㅇ썌";
+			sourceTree = "<group>";
+		};
+		EA4823EC28D87B29007ED9B4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823ED28D87B4E007ED9B4 /* SearchRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		EA4823EF28D87B62007ED9B4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823F228D87B72007ED9B4 /* Interface */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		EA4823F228D87B72007ED9B4 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823F028D87B70007ED9B4 /* SearchRepositoryType.swift */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,12 +362,14 @@
 			files = (
 				EA4823E228D875F0007ED9B4 /* URLSessionError.swift in Sources */,
 				EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */,
+				EA4823EE28D87B4E007ED9B4 /* SearchRepository.swift in Sources */,
 				EA4823E028D875CF007ED9B4 /* httpMethod.swift in Sources */,
 				EA4823DB28D87570007ED9B4 /* URLSessionProtocol.swift in Sources */,
 				EA4823D928D87536007ED9B4 /* URLSessionManager.swift in Sources */,
 				EA4823AF28D87465007ED9B4 /* ContentView.swift in Sources */,
 				EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */,
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
+				EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,
 				EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */,
 			);
