@@ -21,6 +21,7 @@ struct SearchView: View {
                     }
                 }.navigationTitle("Books")
             }
+            .navigationViewStyle(.stack) //single column
         }
     }
 
@@ -50,5 +51,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
+            .environmentObject(SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared)))))
     }
 }
