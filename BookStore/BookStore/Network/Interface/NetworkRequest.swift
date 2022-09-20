@@ -13,16 +13,13 @@ protocol NetworkRequest {
     var httpMethod: HttpMethod { get }
     var urlHost: String { get }
     var urlPath: String { get }
-    var queryParameters: [String: String] { get }
     var httpHeader: [String: String]? { get }
     var httpBody: Data? { get }
 }
 
 extension NetworkRequest {
     var urlComponents: URL? {
-        var urlComponents = URLComponents(string: self.urlHost + self.urlPath)
-        let queries = self.queryParameters.map { URLQueryItem(name: $0, value: $1) }
-        urlComponents?.queryItems = queries
+        let urlComponents = URLComponents(string: self.urlHost + self.urlPath)
         guard let url = urlComponents?.url else {
             return nil
         }
