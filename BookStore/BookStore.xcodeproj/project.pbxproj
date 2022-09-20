@@ -28,7 +28,7 @@
 		EA4823F928D89087007ED9B4 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823F828D89087007ED9B4 /* SearchViewModel.swift */; };
 		EA4823FB28D890CE007ED9B4 /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823FA28D890CE007ED9B4 /* SearchUseCase.swift */; };
 		EA4823FE28D89281007ED9B4 /* BookList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823FD28D89281007ED9B4 /* BookList.swift */; };
-		EA48240228D93774007ED9B4 /* SearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA48240128D93774007ED9B4 /* SearchRow.swift */; };
+		EA6F194E28D9C696004A2AA8 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F194D28D9C696004A2AA8 /* SearchItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		EA4823F828D89087007ED9B4 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		EA4823FA28D890CE007ED9B4 /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 		EA4823FD28D89281007ED9B4 /* BookList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookList.swift; sourceTree = "<group>"; };
-		EA48240128D93774007ED9B4 /* SearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRow.swift; sourceTree = "<group>"; };
+		EA6F194D28D9C696004A2AA8 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,7 +256,7 @@
 			children = (
 				EA4823AE28D87465007ED9B4 /* ContentView.swift */,
 				EA4823F428D88FC5007ED9B4 /* SearchView.swift */,
-				EA48240128D93774007ED9B4 /* SearchRow.swift */,
+				EA6F194D28D9C696004A2AA8 /* SearchItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -407,7 +407,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA48240228D93774007ED9B4 /* SearchRow.swift in Sources */,
 				EA4823FE28D89281007ED9B4 /* BookList.swift in Sources */,
 				EA4823E228D875F0007ED9B4 /* URLSessionError.swift in Sources */,
 				EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */,
@@ -419,6 +418,7 @@
 				EA4823AF28D87465007ED9B4 /* ContentView.swift in Sources */,
 				EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */,
 				EA4823F928D89087007ED9B4 /* SearchViewModel.swift in Sources */,
+				EA6F194E28D9C696004A2AA8 /* SearchItem.swift in Sources */,
 				EA4823F528D88FC5007ED9B4 /* SearchView.swift in Sources */,
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
 				EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */,

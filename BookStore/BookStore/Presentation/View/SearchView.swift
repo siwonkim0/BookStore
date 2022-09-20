@@ -9,44 +9,62 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
+    private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
+    
     
     var body: some View {
-            NavigationView {
-                List {
+        NavigationView {
+            ScrollView {
+                VStack {
                     searchTextField
-                    if viewModel.books.isEmpty {
-                        emptySection
-                    } else {
-                        resultSection
+                    LazyVGrid(
+                        columns: gridItemLayout,
+                        alignment: .center,
+                        spacing: 5
+                    ) {
+                        if viewModel.books.isEmpty {
+                            emptySection
+                        } else {
+                            resultSection
+                        }
                     }
-                }.navigationTitle("Books")
+                }
+                .padding(.horizontal)
             }
-            .navigationViewStyle(.stack) //single column
+            .onAppear {
+                //TODO: 초기데이터 변경
+                viewModel.getBookList(with: "db")
+            }
+            .navigationTitle("Books")
         }
     }
+}
 
-    private extension SearchView {
-        var searchTextField: some View {
-            HStack(alignment: .center) {
-                TextField("Search: e.g MongoDB", text: $viewModel.keyword)
-            }
+extension SearchView {
+    var searchTextField: some View {
+        HStack(alignment: .center) {
+            TextField("Search: e.g MongoDB", text: $viewModel.keyword)
+                .background(.blue)
         }
-        
-        var resultSection: some View {
-            Section {
-                ForEach(viewModel.books) { book in
-                    SearchRow(book: book)
+    }
+    
+    var resultSection: some View {
+        Section {
+            ForEach(viewModel.books) { count in
+                VStack {
+                    SearchItem(book: count)
                 }
             }
         }
-        
-        var emptySection: some View {
-            Section {
-                Text("No results")
-                    .foregroundColor(.gray)
-            }
+    }
+    
+    var emptySection: some View {
+        Section {
+            Text("No results")
+                .foregroundColor(.gray)
         }
     }
+}
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
