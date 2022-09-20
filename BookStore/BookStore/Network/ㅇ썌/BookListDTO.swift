@@ -8,7 +8,7 @@
 import Foundation
 
 struct BookListDTO: Decodable {
-    let error, total, page: String
+    let error, total, page: String?
     let books: [BookDTO]
 }
 
@@ -19,13 +19,18 @@ struct BookDTO: Decodable {
 }
 
 extension BookListDTO {
-    func toDomain() -> BookList {
-        let total = Int(total) ?? 0
+    func toDomain() -> BookList? {
+        guard let total = total,
+              let totalCount = Int(total),
+              let page = page else {
+            return nil
+        }
         return BookList(
             currentPage: page,
-            totalPage: String(total/10),
+            totalPage: String(totalCount/10),
             books: books.map {
                 Book(
+                    id: UUID(),
                     title: $0.title,
                     subtitle: $0.subtitle,
                     isbn13: $0.isbn13,
