@@ -8,19 +8,47 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var viewModel = SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared))))
-    
-    init(viewModel: SearchViewModel) {
-        self.viewModel = viewModel
-    }
+    @EnvironmentObject private var viewModel: SearchViewModel
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            NavigationView {
+                List {
+                    searchTextField
+                    if viewModel.books.isEmpty {
+                        emptySection
+                    } else {
+                        resultSection
+                    }
+                }.navigationTitle("Books")
+            }
+        }
     }
-}
+
+    private extension SearchView {
+        var searchTextField: some View {
+            HStack(alignment: .center) {
+                TextField("Search: e.g MongoDB", text: $viewModel.keyword)
+            }
+        }
+        
+        var resultSection: some View {
+            Section {
+                ForEach(viewModel.books) { book in
+                    SearchRow(book: book)
+                }
+            }
+        }
+        
+        var emptySection: some View {
+            Section {
+                Text("No results")
+                    .foregroundColor(.gray)
+            }
+        }
+    }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared)))))
+        SearchView()
     }
 }
