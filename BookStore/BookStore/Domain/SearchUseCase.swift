@@ -21,7 +21,7 @@ final class SearchUseCase: SearchUseCaseType {
     
     func getBookList(with keyword: String) -> AnyPublisher<BookList, Error> {
         return searchRepository.getBookList(with: keyword)
-            .map {
+            .compactMap {
                 $0.toDomain()
             }
             .eraseToAnyPublisher()
