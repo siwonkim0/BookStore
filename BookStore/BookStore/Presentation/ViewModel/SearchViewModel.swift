@@ -17,6 +17,13 @@ final class SearchViewModel: ObservableObject, Identifiable {
     
     init(searchUseCase: SearchUseCaseType) {
         self.searchUseCase = searchUseCase
+        $keyword
+            .filter { !$0.isEmpty }
+            .dropFirst(1)
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.global(qos: .background))
+            .print()
+            .sink(receiveValue: getBookList(with:))
+            .store(in: &disposables)
     }
     
     func getBookList(with keyword: String) {
