@@ -11,10 +11,26 @@ struct SearchRow: View {
     var book: Book
     
     var body: some View {
-        VStack {
-            Text(book.title)
-            Text(book.subtitle)
+        HStack {
+            AsyncImage(url: URL(string: book.image)) { phase in
+                if let image = phase.image {
+                    image.resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                } else if phase.error != nil {
+                    Color.gray.frame(width: 100, height: 100)
+                } else {
+                    ProgressView()
+                }
+            }
+            Spacer()
+            VStack {
+                Text(book.title)
+                Text(book.subtitle)
+            }
         }
+        
     }
 }
 
