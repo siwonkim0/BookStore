@@ -9,7 +9,7 @@ import Foundation
 
 struct BookListDTO: Decodable {
     let error, total, page: String?
-    let books: [BookDTO]
+    let books: [BookDTO]?
 }
 
 struct BookDTO: Decodable {
@@ -22,7 +22,8 @@ extension BookListDTO {
     func toDomain() -> BookList? {
         guard let total = total,
               let totalCount = Int(total),
-              let page = page else {
+              let page = page,
+              let books = books else {
             return nil
         }
         return BookList(
