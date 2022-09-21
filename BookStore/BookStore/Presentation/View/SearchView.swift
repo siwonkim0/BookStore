@@ -37,6 +37,14 @@ struct SearchView: View {
                 ForEach(viewModel.books) { book in
                     SearchRow(book: book)
                 }
+                if !viewModel.isLastPage {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .frame(maxWidth: .infinity)
+                        .onAppear {
+                            viewModel.loadMore()
+                        }
+                }
             }
         }
         

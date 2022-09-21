@@ -11,6 +11,8 @@ import Combine
 final class SearchViewModel: ObservableObject, Identifiable {
     @Published var keyword: String = ""
     @Published var books: [Book] = []
+    var page: Int = 1
+    var isLastPage = false
     
     private var disposables = Set<AnyCancellable>()
     private let searchUseCase: SearchUseCaseType
@@ -21,13 +23,16 @@ final class SearchViewModel: ObservableObject, Identifiable {
             .dropFirst(1)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.global(qos: .background))
             .print()
-            .sink(receiveValue: getBookList(with:))
+            .sink { [weak self] keyword in
+                self?.page = 1
+                self?.isLastPage = false
+                self?.getBookList(with: keyword)
+            }
             .store(in: &disposables)
     }
     
     func getBookList(with keyword: String) {
-        searchUseCase.getBookList(with: keyword)
-            .map { $0.books }
+        searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] value in
                 switch value {
@@ -38,10 +43,24 @@ final class SearchViewModel: ObservableObject, Identifiable {
                         self?.books = []
                     }
                 }
-            } receiveValue: { [weak self] books in
-                self?.books = books
+            } receiveValue: { [weak self] bookList in
+                
+                guard let totalPage = Int(bookList.totalPage),
+                      let currentPage = self?.page else {
+                    return
+                }
+
+                self?.books.append(contentsOf: bookList.books)
+                self?.page += 1
+                if totalPage == currentPage - 1 { //현재페이지가 전체 페이지수와 같다면 마지막 페이지이다
+                    self?.isLastPage = true
+                }
             }
             .store(in: &disposables)
+    }
+    
+    func loadMore() {
+        getBookList(with: keyword)
     }
     
 }
