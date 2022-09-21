@@ -30,9 +30,11 @@ struct SearchRow: View {
                 Text(book.title)
                     .font(.subheadline)
                     .bold()
+                    .padding(.bottom, 0.3)
                 Text(book.subtitle)
                     .font(.caption)
                     .foregroundColor(Color.gray)
+                    .lineLimit(2)
                 Text(book.price)
             }
         }
