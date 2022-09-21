@@ -13,13 +13,14 @@ protocol NetworkRequest {
     var httpMethod: HttpMethod { get }
     var urlHost: String { get }
     var urlPath: String { get }
+    var page: String { get }
     var httpHeader: [String: String]? { get }
     var httpBody: Data? { get }
 }
 
 extension NetworkRequest {
     var urlComponents: URL? {
-        let urlComponents = URLComponents(string: self.urlHost + self.urlPath)
+        let urlComponents = URLComponents(string: urlHost + urlPath + "/" + page)
         guard let url = urlComponents?.url else {
             return nil
         }
@@ -31,7 +32,7 @@ extension NetworkRequest {
             return nil
         }
         var request = URLRequest(url: urlComponents)
-        request.httpMethod = self.httpMethod.description
+        request.httpMethod = httpMethod.description
         request.allHTTPHeaderFields = httpHeader
         request.httpBody = httpBody
         return request

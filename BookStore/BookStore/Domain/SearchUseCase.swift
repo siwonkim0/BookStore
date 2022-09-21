@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol SearchUseCaseType {
-    func getBookList(with keyword: String) -> AnyPublisher<BookList, Error>
+    func getBookList(with keyword: String, page: Int) -> AnyPublisher<BookList, Error>
 }
 
 final class SearchUseCase: SearchUseCaseType {
@@ -19,8 +19,9 @@ final class SearchUseCase: SearchUseCaseType {
         self.searchRepository = searchRepository
     }
     
-    func getBookList(with keyword: String) -> AnyPublisher<BookList, Error> {
-        return searchRepository.getBookList(with: keyword)
+    func getBookList(with keyword: String, page: Int) -> AnyPublisher<BookList, Error> {
+        let page = String(page)
+        return searchRepository.getBookList(with: keyword, page: page)
             .compactMap {
                 $0.toDomain()
             }

@@ -15,8 +15,8 @@ final class SearchRepository: SearchRepositoryType {
         self.urlSessionManager = urlSessionManager
     }
     
-    func getBookList(with keyword: String) -> AnyPublisher<BookListDTO, Error> {
-        let request = SearchRequest(urlPath: keyword)
+    func getBookList(with keyword: String, page: String) -> AnyPublisher<BookListDTO, Error> {
+        let request = SearchRequest(urlPath: keyword, page: page)
         return urlSessionManager.performDataTask(urlRequest: request)
     }
 }
