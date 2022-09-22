@@ -41,7 +41,14 @@ final class SearchViewModel: ObservableObject, Identifiable {
         searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
             .sink { _ in } receiveValue: { [weak self] bookList in
-                self?.books = bookList.books
+                guard let self = self,
+                      let totalPage = Int(bookList.totalPage) else {
+                    return
+                }
+                if totalPage == self.page {
+                    self.isLastPage = true
+                }
+                self.books = bookList.books
             }
             .store(in: &cancellables)
     }
@@ -55,8 +62,7 @@ final class SearchViewModel: ObservableObject, Identifiable {
                     return
                 }
                 self.page += 1
-
-                if totalPage == self.page - 1 {
+                if totalPage == self.page {
                     self.isLastPage = true
                 }
                 self.books.append(contentsOf: bookList.books)
