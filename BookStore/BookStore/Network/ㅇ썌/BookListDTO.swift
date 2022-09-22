@@ -26,9 +26,15 @@ extension BookListDTO {
               let books = books else {
             return nil
         }
+        var totalPage = 0
+        if totalCount % 10 == 0 {
+            totalPage = totalCount / 10
+        } else {
+            totalPage = (totalCount / 10) + 1
+        }
         return BookList(
             currentPage: page,
-            totalPage: String(totalCount/10),
+            totalPage: String(totalPage),
             books: books.map {
                 Book(
                     id: UUID(),
