@@ -23,7 +23,7 @@ final class SearchViewModel: ObservableObject, Identifiable {
             .dropFirst(1)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.global(qos: .background))
             .print()
-            .sink { [weak self] keyword in
+            .sink { [weak self] keyword in //검색 키워드가 변하면 page, isLastPage 초기화
                 self?.page = 1
                 self?.isLastPage = false
                 self?.getBookList(with: keyword)
@@ -44,12 +44,10 @@ final class SearchViewModel: ObservableObject, Identifiable {
                     }
                 }
             } receiveValue: { [weak self] bookList in
-                
                 guard let totalPage = Int(bookList.totalPage),
                       let currentPage = self?.page else {
                     return
                 }
-
                 self?.books.append(contentsOf: bookList.books)
                 self?.page += 1
                 if totalPage == currentPage - 1 { //현재페이지가 전체 페이지수와 같다면 마지막 페이지이다

@@ -29,6 +29,7 @@
 		EA4823FB28D890CE007ED9B4 /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823FA28D890CE007ED9B4 /* SearchUseCase.swift */; };
 		EA4823FE28D89281007ED9B4 /* BookList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823FD28D89281007ED9B4 /* BookList.swift */; };
 		EA6F195028DAA16E004A2AA8 /* SearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F194F28DAA16E004A2AA8 /* SearchRow.swift */; };
+		EA6F195428DBDAF9004A2AA8 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F195328DBDAF9004A2AA8 /* BookDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		EA4823FA28D890CE007ED9B4 /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 		EA4823FD28D89281007ED9B4 /* BookList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookList.swift; sourceTree = "<group>"; };
 		EA6F194F28DAA16E004A2AA8 /* SearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRow.swift; sourceTree = "<group>"; };
+		EA6F195328DBDAF9004A2AA8 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 				EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */,
 				EA4823F628D8906D007ED9B4 /* View */,
 				EA4823F728D89075007ED9B4 /* ViewModel */,
+				EA6F195328DBDAF9004A2AA8 /* BookDetailView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				EA4823E228D875F0007ED9B4 /* URLSessionError.swift in Sources */,
 				EA4823E928D8776A007ED9B4 /* BookListDTO.swift in Sources */,
 				EA4823EE28D87B4E007ED9B4 /* SearchRepository.swift in Sources */,
+				EA6F195428DBDAF9004A2AA8 /* BookDetailView.swift in Sources */,
 				EA6F195028DAA16E004A2AA8 /* SearchRow.swift in Sources */,
 				EA4823E028D875CF007ED9B4 /* httpMethod.swift in Sources */,
 				EA4823DB28D87570007ED9B4 /* URLSessionProtocol.swift in Sources */,
