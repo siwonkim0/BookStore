@@ -11,48 +11,39 @@ struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
     
     var body: some View {
-            NavigationView {
-                List {
-                    searchTextField
-                    if viewModel.books.isEmpty {
-                        emptySection
-                    } else {
-                        resultSection
-                    }
-                }.navigationTitle("Books")
-            }
-            .navigationViewStyle(.stack) //single column
-        }
+        navigationListView
+            .searchable(text: $viewModel.keyword)
+            .onChange(of: viewModel.keyword, perform: viewModel.getBookList(with:))
     }
+}
 
     private extension SearchView {
-        var searchTextField: some View {
-            HStack(alignment: .center) {
-                TextField("Search: e.g MongoDB", text: $viewModel.keyword)
-            }
-        }
-        
-        var resultSection: some View {
-            Section {
-                ForEach(viewModel.books) { book in
-                    SearchRow(book: book)
-                }
-                if !viewModel.isLastPage {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(maxWidth: .infinity)
-                        .onAppear {
-                            viewModel.loadMore()
+        var navigationListView: some View {
+            NavigationView {
+                List {
+                    ForEach(viewModel.books) { book in
+                        NavigationLink {
+                            BookDetailView()
+                        } label: {
+                            SearchRow(book: book)
                         }
+                    }
+                    if !viewModel.isLastPage && !viewModel.keyword.isEmpty {
+                        progressView
+                    }
                 }
+                .navigationTitle("Books")
             }
+            .navigationViewStyle(.stack)
         }
         
-        var emptySection: some View {
-            Section {
-                Text("No results")
-                    .foregroundColor(.gray)
-            }
+        var progressView: some View {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .frame(maxWidth: .infinity)
+                .onAppear {
+                    viewModel.loadMore()
+                }
         }
     }
 
