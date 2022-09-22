@@ -41,7 +41,7 @@ struct SearchView: View {
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity)
                 .onAppear {
-                    viewModel.loadMore()
+                    viewModel.loadMoreBookList()
                 }
         }
     }
