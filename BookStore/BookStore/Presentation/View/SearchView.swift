@@ -26,7 +26,7 @@ struct SearchView: View {
                         } label: {
                             SearchRow(book: book)
                         }
-                    }
+                    }.listRowSeparator(.hidden)
                     if !viewModel.isLastPage && !viewModel.keyword.isEmpty {
                         progressView
                     }
