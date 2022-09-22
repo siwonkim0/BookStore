@@ -14,51 +14,54 @@ final class SearchViewModel: ObservableObject, Identifiable {
     var page: Int = 1
     var isLastPage = false
     
-    private var disposables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     private let searchUseCase: SearchUseCaseType
     
     init(searchUseCase: SearchUseCaseType) {
         self.searchUseCase = searchUseCase
         $keyword
             .dropFirst(1)
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.global(qos: .background))
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .print()
-            .sink { [weak self] keyword in //검색 키워드가 변하면 page, isLastPage 초기화
-                self?.page = 1
-                self?.isLastPage = false
-                self?.getBookList(with: keyword)
-            }
-            .store(in: &disposables)
-    }
-    
-    func getBookList(with keyword: String) {
-        searchUseCase.getBookList(with: keyword, page: page)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
-                switch value {
-                case let .failure(error):
-                    print(error)
-                case .finished:
-                    if keyword.isEmpty {
-                        self?.books = []
-                    }
-                }
-            } receiveValue: { [weak self] bookList in
-                guard let totalPage = Int(bookList.totalPage),
-                      let currentPage = self?.page else {
+            .sink { [weak self] keyword in
+                guard let self = self else {
                     return
                 }
-                self?.books.append(contentsOf: bookList.books)
-                self?.page += 1
-                if totalPage == currentPage - 1 { //현재페이지가 전체 페이지수와 같다면 마지막 페이지이다
-                    self?.isLastPage = true
+                if keyword.isEmpty {
+                    self.books = []
                 }
+                self.page = 1
+                self.isLastPage = false
+                self.getNewBookList(with: keyword)
             }
-            .store(in: &disposables)
+            .store(in: &cancellables)
     }
     
-    func loadMore() {
-        getBookList(with: keyword)
+    func getNewBookList(with keyword: String) {
+        searchUseCase.getBookList(with: keyword, page: page)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in } receiveValue: { [weak self] bookList in
+                self?.books = bookList.books
+            }
+            .store(in: &cancellables)
+    }
+    
+    func loadMoreBookList() {
+        searchUseCase.getBookList(with: keyword, page: page)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in } receiveValue: { [weak self] bookList in
+                guard let self = self,
+                      let totalPage = Int(bookList.totalPage) else {
+                    return
+                }
+                self.page += 1
+
+                if totalPage == self.page - 1 {
+                    self.isLastPage = true
+                }
+                self.books.append(contentsOf: bookList.books)
+            }
+            .store(in: &cancellables)
     }
     
 }
