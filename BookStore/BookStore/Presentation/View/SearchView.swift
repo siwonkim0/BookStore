@@ -13,7 +13,6 @@ struct SearchView: View {
     var body: some View {
         navigationListView
             .searchable(text: $viewModel.keyword)
-            .onChange(of: viewModel.keyword, perform: viewModel.getBookList(with:))
     }
 }
 
