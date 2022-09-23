@@ -6,10 +6,9 @@
 //
 
 import XCTest
-@testable import BookStore
-
-import Foundation
 import Combine
+
+@testable import BookStore
 
 class SpySearchUseCase: SearchUseCaseType {
     var isTotalPageOne: Bool = false
@@ -38,7 +37,8 @@ class SpySearchUseCase: SearchUseCaseType {
                         url: "url"
                     )
                 ]
-            ))
+            )
+        )
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
     }

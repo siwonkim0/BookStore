@@ -29,6 +29,8 @@
 		EA6F195028DAA16E004A2AA8 /* SearchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F194F28DAA16E004A2AA8 /* SearchRow.swift */; };
 		EA6F195428DBDAF9004A2AA8 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F195328DBDAF9004A2AA8 /* BookDetailView.swift */; };
 		EA6F195628DBEB87004A2AA8 /* SpySearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6F195528DBEB87004A2AA8 /* SpySearchUseCase.swift */; };
+		EAA6A37D28DC98FE00AF657F /* StubSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6A37C28DC98FE00AF657F /* StubSearchRepository.swift */; };
+		EAA6A37F28DC99F400AF657F /* SearchUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA6A37E28DC99F400AF657F /* SearchUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		EA6F194F28DAA16E004A2AA8 /* SearchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRow.swift; sourceTree = "<group>"; };
 		EA6F195328DBDAF9004A2AA8 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		EA6F195528DBEB87004A2AA8 /* SpySearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpySearchUseCase.swift; sourceTree = "<group>"; };
+		EAA6A37C28DC98FE00AF657F /* StubSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubSearchRepository.swift; sourceTree = "<group>"; };
+		EAA6A37E28DC99F400AF657F /* SearchUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +148,8 @@
 		EA4823BC28D87465007ED9B4 /* BookStoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				EA4823BD28D87465007ED9B4 /* SearchViewModelTests.swift */,
-				EA6F195528DBEB87004A2AA8 /* SpySearchUseCase.swift */,
+				EAA6A38128DC9C3500AF657F /* SearchView */,
+				EAA6A38028DC9C1B00AF657F /* TestDouble */,
 			);
 			path = BookStoreTests;
 			sourceTree = "<group>";
@@ -267,6 +271,24 @@
 				EA4823FD28D89281007ED9B4 /* BookList.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EAA6A38028DC9C1B00AF657F /* TestDouble */ = {
+			isa = PBXGroup;
+			children = (
+				EA6F195528DBEB87004A2AA8 /* SpySearchUseCase.swift */,
+				EAA6A37C28DC98FE00AF657F /* StubSearchRepository.swift */,
+			);
+			path = TestDouble;
+			sourceTree = "<group>";
+		};
+		EAA6A38128DC9C3500AF657F /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				EA4823BD28D87465007ED9B4 /* SearchViewModelTests.swift */,
+				EAA6A37E28DC99F400AF657F /* SearchUseCaseTests.swift */,
+			);
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,6 +447,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA6F195628DBEB87004A2AA8 /* SpySearchUseCase.swift in Sources */,
+				EAA6A37F28DC99F400AF657F /* SearchUseCaseTests.swift in Sources */,
+				EAA6A37D28DC98FE00AF657F /* StubSearchRepository.swift in Sources */,
 				EA4823BE28D87465007ED9B4 /* SearchViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
