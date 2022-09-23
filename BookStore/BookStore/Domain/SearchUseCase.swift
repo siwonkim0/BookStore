@@ -13,9 +13,9 @@ protocol SearchUseCaseType {
 }
 
 final class SearchUseCase: SearchUseCaseType {
-    private let searchRepository: SearchRepository
+    private let searchRepository: SearchRepositoryType
     
-    init(searchRepository: SearchRepository) {
+    init(searchRepository: SearchRepositoryType) {
         self.searchRepository = searchRepository
     }
     
