@@ -31,9 +31,6 @@ final class SearchViewModel: ObservableObject, Identifiable {
                 guard let self = self else {
                     return
                 }
-                if keyword.isEmpty {
-                    self.books = []
-                }
                 self.page = 1
                 self.isLastPage = false
                 self.getNewBookList(with: keyword)
@@ -44,12 +41,19 @@ final class SearchViewModel: ObservableObject, Identifiable {
     func getNewBookList(with keyword: String) {
         searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
-            .sink { _ in } receiveValue: { [weak self] bookList in
-                guard let self = self,
-                      let totalPage = Int(bookList.totalPage) else {
+            .catch({ error in
+                Just(
+                    BookList(
+                        currentPage: "",
+                        totalPage: "",
+                        books: []
+                    ))
+            })
+            .sink { [weak self] bookList in
+                guard let self = self else {
                     return
                 }
-                if totalPage == self.page {
+                if bookList.totalPage == "1" {
                     self.isLastPage = true
                 }
                 self.books = bookList.books
@@ -60,15 +64,25 @@ final class SearchViewModel: ObservableObject, Identifiable {
     func loadMoreBookList() {
         searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
-            .sink { _ in } receiveValue: { [weak self] bookList in
-                guard let self = self,
-                      let totalPage = Int(bookList.totalPage) else {
+            .catch { error in
+                Just(
+                    BookList(
+                        currentPage: "",
+                        totalPage: "",
+                        books: []
+                    ))
+            }
+            .map { bookList -> BookList in
+                if bookList.books == [] {
+                    self.isLastPage = true
+                }
+                return bookList
+            }
+            .sink { [weak self] bookList in
+                guard let self = self else {
                     return
                 }
                 self.page += 1
-                if totalPage == self.page {
-                    self.isLastPage = true
-                }
                 self.books.append(contentsOf: bookList.books)
             }
             .store(in: &cancellables)

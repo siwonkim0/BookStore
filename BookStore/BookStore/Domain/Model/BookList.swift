@@ -13,7 +13,7 @@ struct BookList {
     let books: [Book]
 }
 
-struct Book: Identifiable {
+struct Book: Identifiable, Equatable {
     let id: UUID
     let title, subtitle, isbn13, price: String
     let image: String

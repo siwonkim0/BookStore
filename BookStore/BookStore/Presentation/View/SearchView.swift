@@ -27,7 +27,7 @@ struct SearchView: View {
                             SearchRow(book: book)
                         }
                     }.listRowSeparator(.hidden)
-                    if !viewModel.isLastPage && !viewModel.keyword.isEmpty {
+                    if !viewModel.isLastPage && !viewModel.keyword.isEmpty, !viewModel.books.isEmpty  {
                         progressView
                     }
                 }
@@ -37,7 +37,7 @@ struct SearchView: View {
         }
         
         var progressView: some View {
-            ProgressView()
+            ProgressView("Loading...")
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity)
                 .onAppear {
