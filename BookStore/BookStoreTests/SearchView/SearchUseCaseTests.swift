@@ -45,7 +45,7 @@ class SearchUseCaseTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_totalResultsConvertsToTotalPagesCorrectly2() {
+    func test_totalResultsDividedByTenConvertsToTotalPagesCorrectly() {
         searchRepository.isTotalResultsDividedIntoTen = true
         
         let promise = expectation(

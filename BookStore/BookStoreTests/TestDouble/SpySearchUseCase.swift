@@ -16,6 +16,7 @@ class SpySearchUseCase: SearchUseCaseType {
     
     func getBookList(with keyword: String, page: Int) -> AnyPublisher<BookList, Error> {
         getBookListCallCount += 1
+        
         //totalPage가 1인 경우와 아닌 경우 둘다를 테스트하고 싶어서 조건에 따라 다른 값을 내려주도록 설정
         var totalPage = "20"
         if isTotalPageOne {
