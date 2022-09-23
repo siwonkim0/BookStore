@@ -19,6 +19,10 @@ final class SearchViewModel: ObservableObject, Identifiable {
     
     init(searchUseCase: SearchUseCaseType) {
         self.searchUseCase = searchUseCase
+        subscribeKeyword()
+    }
+    
+    private func subscribeKeyword() {
         $keyword
             .dropFirst(1)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
