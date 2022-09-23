@@ -12,24 +12,35 @@ import Combine
 
 class SearchUseCaseTests: XCTestCase {
     private var cancellables: Set<AnyCancellable>!
-    private var searchRepository: StubSearchRepository!
-    private var searchUseCase: SearchUseCase!
 
     override func setUp() {
         cancellables = Set<AnyCancellable>()
-        searchRepository = StubSearchRepository()
-        searchUseCase = SearchUseCase(searchRepository: searchRepository)
     }
     
     override func tearDown() {
         cancellables = []
-        searchRepository = nil
-        searchUseCase = nil
     }
     
     func test_totalResultsConvertsToTotalPagesCorrectly() {
+        let data = BookListDTO(
+            error: "",
+            total: "123",
+            page: "2",
+            books: [
+                BookDTO(
+                    title: "swift",
+                    subtitle: "is fun",
+                    isbn13: "12345",
+                    price: "$20",
+                    image: "imageurl",
+                    url: "url"
+                )
+            ]
+        )
+        let searchRepository = StubSearchRepository(result: .success(data))
+        let searchUseCase = SearchUseCase(searchRepository: searchRepository)
         let promise = expectation(
-            description: "받아올 전체 result의 수가 123개이면 totalPage는 13이 된다"
+            description: "받아올 전체 result의 수가 123개이면 totalPage는 13이 되어야한다."
         )
         searchUseCase.getBookList(with: "aa", page: 2)
             .assertNoFailure()
@@ -42,14 +53,31 @@ class SearchUseCaseTests: XCTestCase {
                 print(bookList)
             }
             .store(in: &cancellables)
+        
         wait(for: [promise], timeout: 1)
     }
     
     func test_totalResultsDividedByTenConvertsToTotalPagesCorrectly() {
-        searchRepository.isTotalResultsDividedIntoTen = true
+        let data = BookListDTO(
+            error: "",
+            total: "120",
+            page: "2",
+            books: [
+                BookDTO(
+                    title: "swift",
+                    subtitle: "is fun",
+                    isbn13: "12345",
+                    price: "$20",
+                    image: "imageurl",
+                    url: "url"
+                )
+            ]
+        )
+        let searchRepository = StubSearchRepository(result: .success(data))
+        let searchUseCase = SearchUseCase(searchRepository: searchRepository)
         
         let promise = expectation(
-            description: "받아올 전체 result의 수가 120개이면 totalPage는 12가 된다"
+            description: "받아올 전체 result의 수가 120개이면 totalPage는 12가 되어야한다."
         )
         searchUseCase.getBookList(with: "aa", page: 2)
             .assertNoFailure()
@@ -59,9 +87,47 @@ class SearchUseCaseTests: XCTestCase {
                 if totalPage == 12 {
                     promise.fulfill()
                 }
-                print(bookList)
             }
             .store(in: &cancellables)
+        
+        wait(for: [promise], timeout: 1)
+    }
+    
+    func test_makeErrorWhenTotalResultIsZero() {
+        let data = BookListDTO(
+            error: "",
+            total: "0",
+            page: "",
+            books: [
+                BookDTO(
+                    title: "swift",
+                    subtitle: "is fun",
+                    isbn13: "12345",
+                    price: "$20",
+                    image: "imageurl",
+                    url: "url"
+                )
+            ]
+        )
+        let searchRepository = StubSearchRepository(result: .success(data))
+        let searchUseCase = SearchUseCase(searchRepository: searchRepository)
+        
+        let promise = expectation(
+            description: "받아올 전체 result의 수가 0개이면 에러를 발생시켜야한다."
+        )
+        searchUseCase.getBookList(with: "aa", page: 2)
+            .sink(receiveCompletion: { error in
+                switch error {
+                case .failure(_):
+                    promise.fulfill()
+                case .finished:
+                    return
+                }
+            }, receiveValue: { bookList in
+                XCTFail("Should not receive Value")
+            })
+            .store(in: &cancellables)
+        
         wait(for: [promise], timeout: 1)
     }
 
