@@ -36,12 +36,16 @@ extension BookListDTO {
             currentPage: page,
             totalPage: String(totalPage),
             books: books.map {
-                Book(
+                var price = $0.price
+                if $0.price == "$0.00" {
+                    price = "Free"
+                }
+                return Book(
                     id: UUID(),
                     title: $0.title,
                     subtitle: $0.subtitle,
                     isbn13: $0.isbn13,
-                    price: $0.price,
+                    price: price,
                     image: $0.image,
                     url: $0.url
                 )
