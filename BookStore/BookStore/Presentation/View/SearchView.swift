@@ -38,6 +38,9 @@ private extension SearchView {
                     if !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
                         ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
                     }
+                    if viewModel.keyword.isEmpty && viewModel.books.isEmpty {
+                        introView
+                    }
                 }
             }
         }
@@ -51,6 +54,18 @@ private extension SearchView {
             .onAppear {
                 viewModel.loadMoreBookList()
             }
+    }
+    
+    var introView: some View {
+        VStack {
+            Image(systemName: "book.circle")
+                .foregroundColor(Color("lightPurple"))
+                .imageScale(.large)
+            Text("Please start searching by")
+            Text("entering keywords")
+        }
+        .foregroundColor(.gray)
+        .font(.largeTitle.weight(.thin))
     }
 }
 
