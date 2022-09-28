@@ -12,39 +12,62 @@ struct SearchView: View {
     
     var body: some View {
         navigationListView
-            .searchable(text: $viewModel.keyword)
+            .searchable(text: $viewModel.keyword) //뷰의 text가 바뀌면 뷰모델의 키워드도 변경하겠다는 바인딩
     }
 }
 
-    private extension SearchView {
-        var navigationListView: some View {
-            NavigationView {
-                List {
-                    ForEach(viewModel.books) { book in
-                        NavigationLink {
-                            BookDetailView()
-                        } label: {
-                            SearchRow(book: book)
+private extension SearchView {
+    var navigationListView: some View {
+        NavigationView {
+            ScrollViewReader { proxy in
+                ZStack {
+                    List {
+                        ForEach(viewModel.books) { book in
+                            NavigationLink {
+                                BookDetailView()
+                            } label: {
+                                SearchRow(book: book)
+                                    .id(book.id)
+                            }
+                        }.listRowSeparator(.hidden)
+                        if !viewModel.isLastPage && !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
+                            progressView
                         }
-                    }.listRowSeparator(.hidden)
-                    if !viewModel.isLastPage && !viewModel.keyword.isEmpty, !viewModel.books.isEmpty  {
-                        progressView
+                    }
+                    .navigationTitle("Books")
+                    if !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
+                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
+                    }
+                    if viewModel.keyword.isEmpty && viewModel.books.isEmpty {
+                        introView
                     }
                 }
-                .navigationTitle("Books")
             }
-            .navigationViewStyle(.stack)
         }
-        
-        var progressView: some View {
-            ProgressView("Loading...")
-                .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity)
-                .onAppear {
-                    viewModel.loadMoreBookList()
-                }
-        }
+        .navigationViewStyle(.stack)
     }
+        
+    var progressView: some View {
+        ProgressView("Loading...")
+            .progressViewStyle(.circular)
+            .frame(maxWidth: .infinity)
+            .onAppear {
+                viewModel.loadMoreBookList()
+            }
+    }
+    
+    var introView: some View {
+        VStack {
+            Image(systemName: "book.circle")
+                .foregroundColor(Color("lightPurple"))
+                .imageScale(.large)
+            Text("Please start searching by")
+            Text("entering keywords")
+        }
+        .foregroundColor(.gray)
+        .font(.largeTitle.weight(.thin))
+    }
+}
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
