@@ -17,7 +17,9 @@ struct ScrollToTopButtonView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    proxy.scrollTo(id, anchor: .top)
+                    withAnimation {
+                        proxy.scrollTo(id, anchor: .top)
+                    }
                 }, label: {
                     Image(systemName: "arrow.up.circle.fill")
                 }).padding(.trailing, 20)
