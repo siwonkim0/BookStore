@@ -16,35 +16,55 @@ struct SearchView: View {
     }
 }
 
-    private extension SearchView {
-        var navigationListView: some View {
-            NavigationView {
-                List {
-                    ForEach(viewModel.books) { book in
-                        NavigationLink {
-                            BookDetailView()
-                        } label: {
-                            SearchRow(book: book)
+private extension SearchView {
+    var navigationListView: some View {
+        NavigationView {
+            ScrollViewReader { proxy in
+                ZStack {
+                    List {
+                        ForEach(viewModel.books) { book in
+                            NavigationLink {
+                                BookDetailView()
+                            } label: {
+                                SearchRow(book: book)
+                                    .id(book.id)
+                            }
+                        }.listRowSeparator(.hidden)
+                        if !viewModel.isLastPage && !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
+                            progressView
                         }
-                    }.listRowSeparator(.hidden)
-                    if !viewModel.isLastPage && !viewModel.keyword.isEmpty, !viewModel.books.isEmpty  {
-                        progressView
+                    }
+                    .navigationTitle("Books")
+                    if !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    proxy.scrollTo(viewModel.books[0].id, anchor: .top)
+                                }, label: {
+                                    Image(systemName: "arrow.up.circle.fill")
+                                }).padding(.trailing, 20)
+                                    .font(.largeTitle)
+                                    .foregroundColor(Color("lightPurple"))
+                            }
+                        }
                     }
                 }
-                .navigationTitle("Books")
             }
-            .navigationViewStyle(.stack)
         }
-        
-        var progressView: some View {
-            ProgressView("Loading...")
-                .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity)
-                .onAppear {
-                    viewModel.loadMoreBookList()
-                }
-        }
+        .navigationViewStyle(.stack)
     }
+        
+    var progressView: some View {
+        ProgressView("Loading...")
+            .progressViewStyle(.circular)
+            .frame(maxWidth: .infinity)
+            .onAppear {
+                viewModel.loadMoreBookList()
+            }
+    }
+}
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
