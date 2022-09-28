@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */; };
 		EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */; };
 		EA4823AF28D87465007ED9B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4823AE28D87465007ED9B4 /* ContentView.swift */; };
 		EA4823B128D87465007ED9B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA4823B028D87465007ED9B4 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopButtonView.swift; sourceTree = "<group>"; };
 		EA4823A928D87465007ED9B4 /* BookStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStoreApp.swift; sourceTree = "<group>"; };
 		EA4823AE28D87465007ED9B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			children = (
 				EA4823AE28D87465007ED9B4 /* ContentView.swift */,
 				EA4823F428D88FC5007ED9B4 /* SearchView.swift */,
+				EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */,
 				EA6F194F28DAA16E004A2AA8 /* SearchRow.swift */,
 			);
 			path = View;
@@ -437,6 +440,7 @@
 				EA4823F528D88FC5007ED9B4 /* SearchView.swift in Sources */,
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
 				EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */,
+				EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,
 				EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */,
 			);

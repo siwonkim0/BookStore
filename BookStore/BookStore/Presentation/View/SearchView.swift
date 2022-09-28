@@ -12,7 +12,7 @@ struct SearchView: View {
     
     var body: some View {
         navigationListView
-            .searchable(text: $viewModel.keyword)
+            .searchable(text: $viewModel.keyword) //뷰의 text가 바뀌면 뷰모델의 키워드도 변경하겠다는 바인딩
     }
 }
 
@@ -36,19 +36,7 @@ private extension SearchView {
                     }
                     .navigationTitle("Books")
                     if !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    proxy.scrollTo(viewModel.books[0].id, anchor: .top)
-                                }, label: {
-                                    Image(systemName: "arrow.up.circle.fill")
-                                }).padding(.trailing, 20)
-                                    .font(.largeTitle)
-                                    .foregroundColor(Color("lightPurple"))
-                            }
-                        }
+                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
                     }
                 }
             }
