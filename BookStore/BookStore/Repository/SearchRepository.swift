@@ -37,8 +37,9 @@ final class SearchRepository: SearchRepositoryType {
                 }
             }
             .eraseToAnyPublisher()
+            .receive(on: DispatchQueue.main)
             .compactMap {
-                print("urlsession, page: ", page)
+                print("urlsession, page:", page)
                 guard let bookList = $0.toDomain() else {
                     return nil
                 }
