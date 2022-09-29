@@ -20,16 +20,7 @@ final class SearchUseCase: SearchUseCaseType {
     }
     
     func getBookList(with keyword: String, page: Int) -> AnyPublisher<BookList, Error> {
-        return searchRepository.getBookList(with: keyword, page: String(page))
-            .tryMap { bookListDTO -> BookListDTO in
-                if bookListDTO.total == "0" {
-                    throw URLSessionError.invaildData
-                } else {
-                    return bookListDTO
-                }
-            }
-            .eraseToAnyPublisher()
-            .compactMap { $0.toDomain() }
+        return searchRepository.getResult(with: keyword, page: String(page))
             .eraseToAnyPublisher()
     }
     

@@ -14,7 +14,8 @@ struct BookStoreApp: App {
             searchRepository: SearchRepository(
                 urlSessionManager: URLSessionManager(
                     urlSession: URLSession.shared
-                ))))
+                ), coreDataManager: CoreDataManager()
+            )))
     
     var body: some Scene {
         WindowGroup {
