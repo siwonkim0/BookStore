@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol SearchRepositoryType {
-    func getBookList(with keyword: String, page: String) -> AnyPublisher<BookListDTO, Error>
+    func getResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error>
 }
