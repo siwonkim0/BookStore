@@ -30,16 +30,17 @@ private extension SearchView {
                                     .id(book.id)
                             }
                         }.listRowSeparator(.hidden)
-                        if !viewModel.isLastPage && !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
+                        
+                        if !viewModel.isLastPage && !viewModel.books.isEmpty {
                             progressView
                         }
                     }
                     .navigationTitle("Books")
-                    if !viewModel.keyword.isEmpty && !viewModel.books.isEmpty {
-                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
-                    }
-                    if viewModel.keyword.isEmpty && viewModel.books.isEmpty {
+                    
+                    if viewModel.books.isEmpty {
                         introView
+                    } else {
+                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
                     }
                 }
             }
@@ -72,6 +73,6 @@ private extension SearchView {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
-            .environmentObject(SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared)))))
+            .environmentObject(SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared), coreDataManager: CoreDataManager()))))
     }
 }

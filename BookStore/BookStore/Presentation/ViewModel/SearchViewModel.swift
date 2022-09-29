@@ -33,7 +33,10 @@ final class SearchViewModel: ObservableObject, Identifiable {
                 }
                 self.page = 1
                 self.isLastPage = false
-                self.getNewBookList(with: keyword)
+                self.books = []
+                if keyword.count > 1 {
+                    self.getNewBookList(with: keyword)
+                }
             }
             .store(in: &cancellables)
     }
