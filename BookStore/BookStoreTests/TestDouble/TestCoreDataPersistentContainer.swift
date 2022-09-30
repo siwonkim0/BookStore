@@ -12,7 +12,7 @@ final class TestCoreDataPersistentContainer: NSObject {
     static var persistentContainer: NSPersistentContainer = {
         let description = NSPersistentStoreDescription()
         description.url = URL(fileURLWithPath: "/dev/null")
-        let container = NSPersistentContainer(name: "SearchResultsContainer")
+        let container = NSPersistentContainer(name: "BookContainer")
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error Loading Core Data. \(error.localizedDescription)")

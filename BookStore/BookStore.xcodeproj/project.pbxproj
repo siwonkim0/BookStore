@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		EA0FB1D628E6CE7200245640 /* BookListDataSecond.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0FB1D528E6CE7200245640 /* BookListDataSecond.json */; };
 		EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */; };
-		EA3EAFC428E46984008D548D /* SearchResultsContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC228E46984008D548D /* SearchResultsContainer.xcdatamodeld */; };
+		EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC228E46984008D548D /* BookContainer.xcdatamodeld */; };
 		EA3EAFC828E48F3E008D548D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */; };
 		EA3EAFCA28E56D77008D548D /* BookEntity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC928E56D77008D548D /* BookEntity+extension.swift */; };
 		EA3EAFEE28E5C929008D548D /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFED28E5C929008D548D /* CoreDataError.swift */; };
@@ -138,9 +138,8 @@
 		EA0FB1D728E6DAD000245640 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				EA3EAFC228E46984008D548D /* SearchResultsContainer.xcdatamodeld */,
-				EA3EAFC928E56D77008D548D /* BookEntity+extension.swift */,
-				EA3EAFED28E5C929008D548D /* CoreDataError.swift */,
+				EA0FB1DD28E6E85900245640 /* Entity */,
+				EA0FB1DC28E6E84B00245640 /* Error */,
 				EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */,
 			);
 			path = CoreData;
@@ -177,6 +176,23 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EA0FB1DC28E6E84B00245640 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EAFED28E5C929008D548D /* CoreDataError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		EA0FB1DD28E6E85900245640 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				EA3EAFC228E46984008D548D /* BookContainer.xcdatamodeld */,
+				EA3EAFC928E56D77008D548D /* BookEntity+extension.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		EA4823A028D87465007ED9B4 = {
@@ -521,7 +537,7 @@
 				EA4823F528D88FC5007ED9B4 /* SearchView.swift in Sources */,
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
 				EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */,
-				EA3EAFC428E46984008D548D /* SearchResultsContainer.xcdatamodeld in Sources */,
+				EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */,
 				EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,
 				EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */,
@@ -856,13 +872,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		EA3EAFC228E46984008D548D /* SearchResultsContainer.xcdatamodeld */ = {
+		EA3EAFC228E46984008D548D /* BookContainer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				EA3EAFC328E46984008D548D /* BookList.xcdatamodel */,
 			);
 			currentVersion = EA3EAFC328E46984008D548D /* BookList.xcdatamodel */;
-			path = SearchResultsContainer.xcdatamodeld;
+			path = BookContainer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
