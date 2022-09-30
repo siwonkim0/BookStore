@@ -19,7 +19,7 @@ struct BookStoreApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchView()
                 .environmentObject(viewModel)
         }
     }
