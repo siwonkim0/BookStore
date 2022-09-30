@@ -8,7 +8,11 @@
 import Foundation
 import Combine
 
-final class URLSessionManager {
+protocol URLSessionManagerType {
+    func performDataTask<T: NetworkRequest>(urlRequest: T) -> AnyPublisher<T.ResponseType, Error>
+}
+
+final class URLSessionManager: URLSessionManagerType {
     private var urlSession: URLSessionProtocol
 
     init(urlSession: URLSessionProtocol = URLSession.shared) {

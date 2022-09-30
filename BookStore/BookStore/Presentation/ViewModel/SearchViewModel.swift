@@ -24,7 +24,6 @@ final class SearchViewModel: ObservableObject, Identifiable {
     
     private func subscribeKeyword() {
         $keyword
-            .dropFirst(1)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .print()
             .sink { [weak self] keyword in
@@ -33,7 +32,10 @@ final class SearchViewModel: ObservableObject, Identifiable {
                 }
                 self.page = 1
                 self.isLastPage = false
-                self.getNewBookList(with: keyword)
+                self.books = []
+                if keyword.count > 1 {
+                    self.getNewBookList(with: keyword)
+                }
             }
             .store(in: &cancellables)
     }
@@ -62,6 +64,7 @@ final class SearchViewModel: ObservableObject, Identifiable {
     }
     
     func loadMoreBookList() {
+        self.page += 1
         searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
             .catch { error in
@@ -82,7 +85,6 @@ final class SearchViewModel: ObservableObject, Identifiable {
                 guard let self = self else {
                     return
                 }
-                self.page += 1
                 self.books.append(contentsOf: bookList.books)
             }
             .store(in: &cancellables)

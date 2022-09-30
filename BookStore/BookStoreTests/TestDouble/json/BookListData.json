@@ -1,0 +1,24 @@
+
+{
+    "error": "0",
+    "total": "1770",
+    "page": "2",
+    "books": [
+        {
+            "title": "Advanced Penetration Testing for Highly-Secured Environments",
+            "subtitle": "Learn to perform professional penetration testing for highly-secured environments with this intensive hands-on guide",
+            "isbn13": "9781849517744",
+            "price": "$35.99",
+            "image": "https://itbook.store/img/books/9781849517744.png",
+            "url": "https://itbook.store/books/9781849517744"
+        },
+        {
+            "title": "Hibernate Search by Example",
+            "subtitle": "Explore the Hibernate Search system and use its extraordinary search features in your own applications",
+            "isbn13": "9781849519205",
+            "price": "$17.99",
+            "image": "https://itbook.store/img/books/9781849519205.png",
+            "url": "https://itbook.store/books/9781849519205"
+        }
+    ]
+}
