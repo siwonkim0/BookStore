@@ -11,8 +11,9 @@ enum URLSessionError: LocalizedError {
     case invalidRequest
     case requestFailed(description: String)
     case responseFailed(code: Int)
-    case invaildData
-    case invaildURL
+    case invalidData
+    case invalidURL
+    case decodingFailed
     
     var errorDescription: String {
         switch self {
@@ -22,10 +23,12 @@ enum URLSessionError: LocalizedError {
             return description
         case .responseFailed(let code):
             return "statusCode: \(code)"
-        case .invaildData:
+        case .invalidData:
             return "invaildData"
-        case .invaildURL:
+        case .invalidURL:
             return "invaildURL"
+        case .decodingFailed:
+            return "decodingFailed"
         }
     }
 }
