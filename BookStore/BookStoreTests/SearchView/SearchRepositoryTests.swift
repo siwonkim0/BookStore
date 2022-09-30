@@ -68,7 +68,6 @@ final class SearchRepositoryTests: XCTestCase {
         searchRepository.getResult(with: "data", page: "1")
             .assertNoFailure()
             .sink { bookList in
-                print(bookList)
                 coreDataManager.verifyFetch(callCount: 1)
                 urlSessionManager.verifyPerformDataTask(callCount: 0)
                 if bookList.totalPage == "10" {
