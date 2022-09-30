@@ -10,7 +10,7 @@ import Combine
 
 @testable import BookStore
 
-class SearchViewModelTests: XCTestCase {
+final class SearchViewModelTests: XCTestCase {
     private var cancellables: Set<AnyCancellable>!
 
     override func setUp() {
@@ -53,11 +53,9 @@ class SearchViewModelTests: XCTestCase {
         searchViewModel.$books
             .dropFirst()
             .sink { _ in
-                print(searchViewModel.page, searchViewModel.isLastPage)
-                if searchViewModel.isLastPage == false && searchViewModel.page == 1 {
+                if searchViewModel.isLastPage == false && searchViewModel.page == 1 && searchViewModel.books.isEmpty {
                     promise.fulfill()
                 }
-                searchUseCase.verifygetBookList(callCount: 1)
             }.store(in: &cancellables)
 
         searchViewModel.keyword = keyword
@@ -141,7 +139,7 @@ class SearchViewModelTests: XCTestCase {
     
     func test_booksGetsEmptiedWhenInvalidKeywordEntered() {
         let searchUseCase = SpySearchUseCase(
-            result: .failure(URLSessionError.invaildData)
+            result: .failure(URLSessionError.invalidData)
         )
         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
         let promise = expectation(
@@ -162,7 +160,7 @@ class SearchViewModelTests: XCTestCase {
     
     func test_isLastPageTurnsTrueWhenPaginationFailed() {
         let searchUseCase = SpySearchUseCase(
-            result: .failure(URLSessionError.invaildData)
+            result: .failure(URLSessionError.invalidData)
         )
         let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
         let promise = expectation(
@@ -171,8 +169,6 @@ class SearchViewModelTests: XCTestCase {
         searchViewModel.$books
             .dropFirst()
             .sink { books in
-                print(books)
-                print(searchViewModel.isLastPage)
                 if searchViewModel.isLastPage {
                     promise.fulfill()
                     searchUseCase.verifygetBookList(callCount: 1)

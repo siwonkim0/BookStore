@@ -24,7 +24,6 @@ final class SearchViewModel: ObservableObject, Identifiable {
     
     private func subscribeKeyword() {
         $keyword
-            .dropFirst(1)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .print()
             .sink { [weak self] keyword in
