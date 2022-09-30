@@ -66,7 +66,7 @@ private extension SearchView {
             Text("entering keywords")
         }
         .foregroundColor(.gray)
-        .font(.largeTitle.weight(.thin))
+        .font(.headline.weight(.thin))
     }
 }
 
