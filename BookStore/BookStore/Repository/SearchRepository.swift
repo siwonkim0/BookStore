@@ -10,10 +10,10 @@ import Combine
 import CoreData
 
 final class SearchRepository: SearchRepositoryType {
-    private let urlSessionManager: URLSessionManager
-    private let coreDataManager: CoreDataManager
+    private let urlSessionManager: URLSessionManagerType
+    private let coreDataManager: CoreDataManagerType
     
-    init(urlSessionManager: URLSessionManager, coreDataManager: CoreDataManager) {
+    init(urlSessionManager: URLSessionManagerType, coreDataManager: CoreDataManagerType) {
         self.urlSessionManager = urlSessionManager
         self.coreDataManager = coreDataManager
     }
@@ -31,7 +31,7 @@ final class SearchRepository: SearchRepositoryType {
         return urlSessionManager.performDataTask(urlRequest: request)
             .tryMap { bookListDTO -> BookListDTO in
                 if bookListDTO.total == "0" {
-                    throw URLSessionError.invaildData
+                    throw URLSessionError.invalidData
                 } else {
                     return bookListDTO
                 }

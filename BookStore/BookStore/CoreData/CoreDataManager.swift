@@ -9,7 +9,13 @@ import SwiftUI
 import CoreData
 import Combine
 
-class CoreDataManager {
+protocol CoreDataManagerType {
+    func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error>
+    func add(bookList: BookList, keyword: String)
+    func delete(entity: BookEntity)
+}
+
+class CoreDataManager: CoreDataManagerType {
     private let container: NSPersistentContainer
     
     init() {
@@ -27,14 +33,13 @@ class CoreDataManager {
         return Deferred { [weak self] () -> Future<[BookEntity], Error> in
             guard let self = self else {
                 return Future<[BookEntity], Error> { promise in
-                    promise(.failure(URLSessionError.invaildData))
+                    promise(.failure(CoreDataError.invalidData))
                 }
             }
-            
             guard let entities = try? self.container.viewContext.fetch(request),
                   entities.count != 0 else {
                 return Future<[BookEntity], Error> { promise in
-                    promise(.failure(URLSessionError.invaildData))
+                    promise(.failure(CoreDataError.invalidData))
                 }
             }
             return Future { promise in
@@ -68,15 +73,16 @@ class CoreDataManager {
         }
     }
     
-    func save() {
+    func delete(entity: BookEntity) {
+        container.viewContext.delete(entity)
+        save()
+    }
+    
+    private func save() {
         do {
             try container.viewContext.save()
         } catch {
             print("error saving core data", error.localizedDescription)
         }
-    }
-    
-    func delete(entity: BookEntity) {
-        container.viewContext.delete(entity)
     }
 }
