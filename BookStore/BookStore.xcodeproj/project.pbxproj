@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		EA0FB1D628E6CE7200245640 /* BookListDataSecond.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0FB1D528E6CE7200245640 /* BookListDataSecond.json */; };
 		EA0FB1E128E7336200245640 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E028E7336200245640 /* WebView.swift */; };
+		EA0FB1E328E7EC6200245640 /* BookDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E228E7EC6200245640 /* BookDetailViewModel.swift */; };
+		EA0FB1E528E82B9200245640 /* BookDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E428E82B9200245640 /* BookDetailRepository.swift */; };
+		EA0FB1E728E82D3900245640 /* BookDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E628E82D3900245640 /* BookDetailRequest.swift */; };
+		EA0FB1E928E82D5600245640 /* BookDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */; };
 		EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */; };
 		EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC228E46984008D548D /* BookContainer.xcdatamodeld */; };
 		EA3EAFC828E48F3E008D548D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */; };
@@ -65,6 +69,10 @@
 /* Begin PBXFileReference section */
 		EA0FB1D528E6CE7200245640 /* BookListDataSecond.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = BookListDataSecond.json; sourceTree = "<group>"; };
 		EA0FB1E028E7336200245640 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		EA0FB1E228E7EC6200245640 /* BookDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewModel.swift; sourceTree = "<group>"; };
+		EA0FB1E428E82B9200245640 /* BookDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailRepository.swift; sourceTree = "<group>"; };
+		EA0FB1E628E82D3900245640 /* BookDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailRequest.swift; sourceTree = "<group>"; };
+		EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailDTO.swift; sourceTree = "<group>"; };
 		EA3EAF8528E433B0008D548D /* ScrollToTopButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToTopButtonView.swift; sourceTree = "<group>"; };
 		EA3EAFC328E46984008D548D /* BookList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookList.xcdatamodel; sourceTree = "<group>"; };
 		EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -177,6 +185,7 @@
 		EA0FB1DB28E6E6FF00245640 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				EA0FB1E228E7EC6200245640 /* BookDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -291,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4823E528D876E3007ED9B4 /* SearchRequest.swift */,
+				EA0FB1E628E82D3900245640 /* BookDetailRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -299,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4823E828D8776A007ED9B4 /* BookListDTO.swift */,
+				EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */,
 			);
 			name = DTO;
 			path = "ㅇ썌";
@@ -308,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4823ED28D87B4E007ED9B4 /* SearchRepository.swift */,
+				EA0FB1E428E82B9200245640 /* BookDetailRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -536,12 +548,16 @@
 				EA4823FB28D890CE007ED9B4 /* SearchUseCase.swift in Sources */,
 				EA4823D928D87536007ED9B4 /* URLSessionManager.swift in Sources */,
 				EA4823EB28D8779B007ED9B4 /* BookStoreURLHost.swift in Sources */,
+				EA0FB1E328E7EC6200245640 /* BookDetailViewModel.swift in Sources */,
 				EA3EAFC828E48F3E008D548D /* CoreDataManager.swift in Sources */,
 				EA4823F928D89087007ED9B4 /* SearchViewModel.swift in Sources */,
 				EA4823F528D88FC5007ED9B4 /* SearchView.swift in Sources */,
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
+				EA0FB1E728E82D3900245640 /* BookDetailRequest.swift in Sources */,
+				EA0FB1E528E82B9200245640 /* BookDetailRepository.swift in Sources */,
 				EA4823F128D87B70007ED9B4 /* SearchRepositoryType.swift in Sources */,
 				EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */,
+				EA0FB1E928E82D5600245640 /* BookDetailDTO.swift in Sources */,
 				EA3EAF8628E433B0008D548D /* ScrollToTopButtonView.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,
 				EA4823DD28D875B1007ED9B4 /* NetworkRequest.swift in Sources */,
