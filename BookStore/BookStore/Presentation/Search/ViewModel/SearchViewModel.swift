@@ -77,7 +77,7 @@ final class SearchViewModel: ObservableObject, Identifiable {
                     ))
             }
             .map { bookList -> BookList in
-                if bookList.books == [] {
+                if bookList.books.isEmpty {
                     self.isLastPage = true
                 }
                 return bookList
