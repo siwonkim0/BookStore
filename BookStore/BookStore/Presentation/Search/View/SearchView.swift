@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
-    @State private var isMemo: Bool = true
     
     var body: some View {
         navigationListView
@@ -25,9 +24,9 @@ private extension SearchView {
                     List {
                         ForEach(viewModel.books) { book in
                             NavigationLink {
-                                BookDetailView(isMemo: $isMemo)
+                                BookDetailView(isMemo: $viewModel.isMemo)
                             } label: {
-                                SearchRow(isMemo: $isMemo, book: book)
+                                SearchRow(isMemo: $viewModel.isMemo, book: book)
                                     .id(book.id)
                             }
                         }.listRowSeparator(.hidden)

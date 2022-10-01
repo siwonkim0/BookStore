@@ -11,6 +11,7 @@ import Combine
 final class SearchViewModel: ObservableObject, Identifiable {
     @Published var keyword: String = ""
     @Published var books: [Book] = []
+    @Published var isMemo: Bool = false
     var page: Int = 1
     var isLastPage = false
     
