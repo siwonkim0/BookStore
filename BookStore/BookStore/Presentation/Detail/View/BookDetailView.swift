@@ -9,9 +9,6 @@ import SwiftUI
 
 struct BookDetailView: View {
     @ObservedObject private var viewModel: BookDetailViewModel
-    @State private var isWebViewPresented: Bool = false
-    @State private var isComfirmationDialogPresented: Bool = false
-    @State private var isMemoPresented: Bool = false
     
     init(viewModel: BookDetailViewModel) {
         self.viewModel = viewModel
@@ -33,10 +30,6 @@ struct BookDetailView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 toolBarButton
-                    .confirmationDialog("add memo", isPresented: $isComfirmationDialogPresented, titleVisibility: .visible) {
-                        addMemoButton
-                        visitWebsiteButton
-                    }
             }
             
         }.onAppear {
@@ -81,26 +74,30 @@ private extension BookDetailView {
     
     var toolBarButton: some View {
         Button() {
-            isComfirmationDialogPresented = true
+            viewModel.isComfirmationDialogPresented = true
         } label: {
             Image(systemName: "ellipsis.circle.fill")
+        }
+        .confirmationDialog("add memo", isPresented: $viewModel.isComfirmationDialogPresented, titleVisibility: .visible) {
+            addMemoButton
+            visitWebsiteButton
         }
     }
     
     var addMemoButton: some View {
         Button("add memo") {
-            isMemoPresented = true
-        }.sheet(isPresented: $isMemoPresented) {
-            MemoView(book: $viewModel.book, isMemoPresented: $isMemoPresented)
+            viewModel.isMemoPresented = true
+        }.sheet(isPresented: $viewModel.isMemoPresented) {
+            MemoView(book: $viewModel.book, isMemoPresented: $viewModel.isMemoPresented)
         }
     }
     
     var visitWebsiteButton: some View {
         Button("visit website") {
-            isWebViewPresented = true
+            viewModel.isWebViewPresented = true
         }
-        .sheet(isPresented: $isWebViewPresented) {
-            WebView(url: URL(string: "https://itbook.store/books/9781849517744")!)
+        .sheet(isPresented: $viewModel.isWebViewPresented) {
+            WebView(url: URL(string: viewModel.book.url)!)
         }
     }
     

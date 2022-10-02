@@ -9,6 +9,9 @@ import Foundation
 import Combine
 
 final class BookDetailViewModel: ObservableObject {
+    @Published var isWebViewPresented: Bool = false
+    @Published var isComfirmationDialogPresented: Bool = false
+    @Published var isMemoPresented: Bool = false
     @Published var bookDetail: BookDetail = BookDetail(title: "", subtitle: "", authors: "", publisher: "", language: "", isbn13: "", bookPages: "", year: "", rating: "", description: "", price: "", imageUrl: "", url: "", pdf: PDF(chapter2: "", chapter5: ""))
     var book: Book
     private var cancellables = Set<AnyCancellable>()
