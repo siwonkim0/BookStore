@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class SearchViewModel: ObservableObject, Identifiable {
+final class SearchViewModel: ObservableObject {
     @Published var keyword: String = ""
     @Published var books: [Book] = []
     var page: Int = 1
