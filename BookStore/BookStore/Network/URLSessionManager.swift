@@ -13,7 +13,7 @@ protocol URLSessionManagerType {
 }
 
 final class URLSessionManager: URLSessionManagerType {
-    private var urlSession: URLSessionProtocol
+    private let urlSession: URLSessionProtocol
 
     init(urlSession: URLSessionProtocol = URLSession.shared) {
         self.urlSession = urlSession

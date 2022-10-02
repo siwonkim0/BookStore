@@ -14,7 +14,7 @@ enum HttpMethod {
     case patch
     case delete
     
-    var description: String {
+    var urlString: String {
         switch self {
         case .get:
             return "GET"

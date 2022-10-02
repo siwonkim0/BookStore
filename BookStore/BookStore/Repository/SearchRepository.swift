@@ -27,7 +27,7 @@ final class SearchRepository: SearchRepositoryType {
     }
     
     private func getNewResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error> {
-        let request = SearchRequest(urlPath: keyword, page: page)
+        let request = SearchRequest(urlPath: keyword + "/" + page)
         return urlSessionManager.performDataTask(urlRequest: request)
             .tryMap { bookListDTO -> BookListDTO in
                 if bookListDTO.total == "0" {
