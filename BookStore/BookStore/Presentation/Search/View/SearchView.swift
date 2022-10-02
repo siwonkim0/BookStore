@@ -15,41 +15,39 @@ struct SearchView: View {
     }
     
     var body: some View {
-        navigationListView
-            .searchable(text: $viewModel.keyword) //뷰의 text가 바뀌면 뷰모델의 키워드도 변경하겠다는 바인딩
-    }
-}
-
-private extension SearchView {
-    var navigationListView: some View {
         NavigationView {
             ScrollViewReader { proxy in
                 ZStack {
                     List {
-                        ForEach(viewModel.books) { book in
-                            NavigationLink { () -> BookDetailView in
-                                BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager())))
-                            } label: {
-                                SearchRow(book: book)
-                                    .id(book.id)
-                            }
-                        }.listRowSeparator(.hidden)
-                        
+                        searchResultRows
                         if !viewModel.isLastPage && !viewModel.books.isEmpty {
                             progressView
                         }
                     }
                     .navigationTitle("Books")
-                    
                     if viewModel.books.isEmpty {
                         introView
                     } else {
-                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy) //computed property viemodel -> safe subscript 
+                        scrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy) //computed property viemodel -> safe subscript
                     }
                 }
             }
         }
         .navigationViewStyle(.stack)
+        .searchable(text: $viewModel.keyword)
+    }
+}
+
+private extension SearchView {
+    var searchResultRows: some View {
+        ForEach(viewModel.books) { book in
+            NavigationLink { () -> BookDetailView in
+                BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager())))
+            } label: {
+                SearchRow(book: book)
+                    .id(book.id)
+            }
+        }.listRowSeparator(.hidden)
     }
         
     var progressView: some View {
@@ -71,6 +69,24 @@ private extension SearchView {
         }
         .foregroundColor(.gray)
         .font(.headline.weight(.thin))
+    }
+
+    func scrollToTopButtonView(id: UUID, proxy: ScrollViewProxy) -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        proxy.scrollTo(id, anchor: .top)
+                    }
+                }, label: {
+                    Image(systemName: "arrow.up.circle.fill")
+                }).padding(.trailing, 20)
+                    .font(.largeTitle)
+                    .foregroundColor(Color("lightPurple"))
+            }
+        }
     }
 }
 
