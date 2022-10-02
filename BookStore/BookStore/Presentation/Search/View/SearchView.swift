@@ -24,10 +24,10 @@ private extension SearchView {
                     List {
                         ForEach(viewModel.books) { book in
                             NavigationLink {
-                                BookDetailView(isMemo: $viewModel.isMemo) //TODO: Remove isMemo
+                                BookDetailView()
                                     .environmentObject(book)
                             } label: {
-                                SearchRow(isMemo: $viewModel.isMemo, book: book)
+                                SearchRow(book: book)
                                     .id(book.id)
                             }
                         }.listRowSeparator(.hidden)

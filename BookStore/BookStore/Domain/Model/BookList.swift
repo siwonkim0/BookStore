@@ -18,8 +18,9 @@ class Book: Identifiable, ObservableObject {
     let title, subtitle, isbn13, price: String
     let image: String
     let url: String
+    var memo: String
     
-    init(id: UUID, title: String, subtitle: String, isbn13: String, price: String, image: String, url: String) {
+    init(id: UUID, title: String, subtitle: String, isbn13: String, price: String, image: String, url: String, memo: String) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
@@ -27,6 +28,7 @@ class Book: Identifiable, ObservableObject {
         self.price = price
         self.image = image
         self.url = url
+        self.memo = memo
     }
 
 }

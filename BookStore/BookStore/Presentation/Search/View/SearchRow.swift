@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct SearchRow: View {
-    @Binding var isMemo: Bool
     var book: Book
     
     var body: some View {
@@ -38,9 +37,8 @@ struct SearchRow: View {
                 HStack {
                     Text(book.price)
                     Image(systemName: "note.text")
-                        .opacity(isMemo ? 1 : 0)
+                        .opacity(!book.memo.isEmpty ? 1 : 0)
                 }
-                
             }
         }
         
@@ -49,7 +47,7 @@ struct SearchRow: View {
 
 struct SearchRow_Previews: PreviewProvider {
     static var previews: some View {
-        SearchRow(isMemo: .constant(true), book: Book(id: UUID(), title: "previewTitle", subtitle: "previewSubtitle", isbn13: "123", price: "100", image: "", url: "https://itbook.store/books/9781783988006"))
+        SearchRow(book: Book(id: UUID(), title: "previewTitle", subtitle: "previewSubtitle", isbn13: "123", price: "100", image: "", url: "https://itbook.store/books/9781783988006", memo: "memo"))
             .previewLayout(.fixed(width: 300, height: 70))
     }
 }

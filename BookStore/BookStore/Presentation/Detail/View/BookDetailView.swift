@@ -11,8 +11,6 @@ struct BookDetailView: View {
     @ObservedObject var viewModel: BookDetailViewModel = BookDetailViewModel(repository: BookDetailRepository(urlSessionManager: URLSessionManager()))
     @EnvironmentObject var book: Book //memo때문에 two way binding
     @State private var isWebViewPresented: Bool = false
-    @Binding var isMemo: Bool
-    @State private var memoText: String = "sds"
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -46,7 +44,6 @@ struct BookDetailView: View {
 
             }
         })
-        
         .onAppear {
             viewModel.getData(with: book.isbn13)
         }
@@ -114,7 +111,7 @@ private extension BookDetailView {
     }
     
     var textEditorView: some View {
-        TextEditor(text: $memoText)
+        TextEditor(text: $book.memo)
             .frame(height: 250)
             .padding(.all, .maximum(5, 5))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.gray))
@@ -133,7 +130,7 @@ private extension BookDetailView {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(isMemo: .constant(true))
-            .environmentObject(Book(id: UUID(), title: "book", subtitle: "sub", isbn13: "123", price: "$12", image: "aa", url: "aa"))
+        BookDetailView()
+            .environmentObject(Book(id: UUID(), title: "book", subtitle: "sub", isbn13: "123", price: "$12", image: "aa", url: "aa", memo: "memo"))
     }
 }
