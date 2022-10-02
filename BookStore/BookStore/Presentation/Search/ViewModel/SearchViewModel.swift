@@ -39,7 +39,7 @@ final class SearchViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func getNewBookList(with keyword: String) {
         searchUseCase.getBookList(with: keyword, page: page)
             .receive(on: DispatchQueue.main)
@@ -90,4 +90,18 @@ final class SearchViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+}
+
+extension SearchViewModel {
+    var showProgressView: Bool {
+        !isLastPage && !books.isEmpty
+    }
+    
+    var showIntroView: Bool {
+        books.isEmpty
+    }
+    
+    var firstSearchResultId: UUID {
+        books[0].id
+    }
 }

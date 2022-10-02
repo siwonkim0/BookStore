@@ -20,15 +20,15 @@ struct SearchView: View {
                 ZStack {
                     List {
                         searchResultRows
-                        if !viewModel.isLastPage && !viewModel.books.isEmpty {
+                        if viewModel.showProgressView {
                             progressView
                         }
                     }
                     .navigationTitle("Books")
-                    if viewModel.books.isEmpty {
+                    if viewModel.showIntroView {
                         introView
                     } else {
-                        scrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy) //computed property viemodel -> safe subscript
+                        scrollToTopButtonView(id: viewModel.firstSearchResultId, proxy: proxy)
                     }
                 }
             }
@@ -42,7 +42,12 @@ private extension SearchView {
     var searchResultRows: some View {
         ForEach(viewModel.books) { book in
             NavigationLink { () -> BookDetailView in
-                BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager())))
+                BookDetailView(
+                    viewModel: BookDetailViewModel(
+                        book: book,
+                        repository: BookDetailRepository(
+                            urlSessionManager: URLSessionManager()
+                        )))
             } label: {
                 SearchRow(book: book)
                     .id(book.id)
