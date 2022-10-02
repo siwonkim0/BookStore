@@ -20,7 +20,7 @@ final class SearchViewModelTests: XCTestCase {
         cancellables = []
     }
 
-    func test_keywordChangeSetsStatesToDefault() {
+    func test_키워드가_바뀌면_page가_1_isLastPage가_false가_되어야한다() {
         let data = BookList(
             currentPage: "1",
             totalPage: "10",
@@ -37,12 +37,11 @@ final class SearchViewModelTests: XCTestCase {
                 )
             ]
         )
-        let searchUseCase = SpySearchUseCase(
+        let searchRepository = SpySearchRepository(
             result: .success(data)
         )
-        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
+        let searchViewModel = SearchViewModel(searchRepository: searchRepository)
         
-        //page가 23이고, isLastPage가 true인 상태에서
         searchViewModel.page = 23
         searchViewModel.isLastPage = true
         let keyword = "none"
@@ -63,7 +62,7 @@ final class SearchViewModelTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
 
-    func test_paginationIncrementsPageByOne() {
+    func test_현재_페이지가_200일때_다음_페이지가_로딩되면_page가_201이_되어야한다() {
         let data = BookList(
             currentPage: "200",
             totalPage: "500",
@@ -80,10 +79,10 @@ final class SearchViewModelTests: XCTestCase {
                 )
             ]
         )
-        let searchUseCase = SpySearchUseCase(
+        let searchRepository = SpySearchRepository(
             result: .success(data)
         )
-        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
+        let searchViewModel = SearchViewModel(searchRepository: searchRepository)
         
         searchViewModel.page = 200
         let promise = expectation(
@@ -96,14 +95,14 @@ final class SearchViewModelTests: XCTestCase {
                 if searchViewModel.page == 201 {
                     promise.fulfill()
                 }
-                searchUseCase.verifygetBookList(callCount: 1)
+                searchRepository.verifygetResult(callCount: 1)
             }.store(in: &cancellables)
 
         searchViewModel.loadMoreBookList()
         wait(for: [promise], timeout: 1)
     }
     
-    func test_isLastPageTurnsTrueWhenTotalPageIsOne() {
+    func test_response_data가_1페이지일때_isLastPage가_true가_되어야한다() {
         let data = BookList(
             currentPage: "1",
             totalPage: "1",
@@ -120,10 +119,11 @@ final class SearchViewModelTests: XCTestCase {
                 )
             ]
         )
-        let searchUseCase = SpySearchUseCase(
+        let searchRepository = SpySearchRepository(
             result: .success(data)
         )
-        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
+        let searchViewModel = SearchViewModel(searchRepository: searchRepository)
+    
         let promise = expectation(
             description: "response data가 1페이지일때 isLastPage가 true가 되어야한다."
         )
@@ -132,7 +132,7 @@ final class SearchViewModelTests: XCTestCase {
             .sink { books in
                 if searchViewModel.isLastPage {
                     promise.fulfill()
-                    searchUseCase.verifygetBookList(callCount: 1)
+                    searchRepository.verifygetResult(callCount: 1)
                 }
             }.store(in: &cancellables)
         
@@ -140,11 +140,11 @@ final class SearchViewModelTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_booksGetsEmptiedWhenInvalidKeywordEntered() {
-        let searchUseCase = SpySearchUseCase(
+    func test_잘못된_키워드로_요청했을때_에러가_발생하면_books가_빈_배열이_되어야한다() {
+        let searchRepository = SpySearchRepository(
             result: .failure(URLSessionError.invalidData)
         )
-        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
+        let searchViewModel = SearchViewModel(searchRepository: searchRepository)
         let promise = expectation(
             description: "잘못된 키워드로 요청했을때 에러가 발생하면 books가 빈 배열이 되어야한다."
         )
@@ -153,7 +153,7 @@ final class SearchViewModelTests: XCTestCase {
             .sink { books in
                 if searchViewModel.books.isEmpty {
                     promise.fulfill()
-                    searchUseCase.verifygetBookList(callCount: 1)
+                    searchRepository.verifygetResult(callCount: 1)
                 }
             }.store(in: &cancellables)
         
@@ -161,11 +161,11 @@ final class SearchViewModelTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_isLastPageTurnsTrueWhenPaginationFailed() {
-        let searchUseCase = SpySearchUseCase(
+    func test_다음_페이지를_요청했을때_에러가_발생하면_isLastPage가_true가_되어야한다() {
+        let searchRepository = SpySearchRepository(
             result: .failure(URLSessionError.invalidData)
         )
-        let searchViewModel = SearchViewModel(searchUseCase: searchUseCase)
+        let searchViewModel = SearchViewModel(searchRepository: searchRepository)
         let promise = expectation(
             description: "다음 페이지를 요청했을때 에러가 발생하면 isLastPage가 true가 되어야한다."
         )
@@ -174,7 +174,7 @@ final class SearchViewModelTests: XCTestCase {
             .sink { books in
                 if searchViewModel.isLastPage {
                     promise.fulfill()
-                    searchUseCase.verifygetBookList(callCount: 1)
+                    searchRepository.verifygetResult(callCount: 1)
                 }
             }.store(in: &cancellables)
         

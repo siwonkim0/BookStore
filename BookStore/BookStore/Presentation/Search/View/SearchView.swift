@@ -97,6 +97,6 @@ private extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared), coreDataManager: CoreDataManager()))))
+        SearchView(viewModel: SearchViewModel(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared), coreDataManager: CoreDataManager())))
     }
 }

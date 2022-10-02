@@ -46,20 +46,3 @@ struct PDF: Decodable {
         case chapter5 = "Chapter 5"
     }
 }
-
-struct BookDetail {
-    let title: String
-    let subtitle: String
-    let authors: String
-    let publisher: String
-    let language: String
-    let isbn13: String
-    let bookPages: String
-    let year: String
-    let rating: String
-    let description: String
-    let price: String
-    let imageUrl: String
-    let url: String
-    let pdf: PDF
-}

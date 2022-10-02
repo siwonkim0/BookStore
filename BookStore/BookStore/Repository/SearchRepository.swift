@@ -9,6 +9,10 @@ import Foundation
 import Combine
 import CoreData
 
+protocol SearchRepositoryType {
+    func getResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error>
+}
+
 final class SearchRepository: SearchRepositoryType {
     private let urlSessionManager: URLSessionManagerType
     private let coreDataManager: CoreDataManagerType

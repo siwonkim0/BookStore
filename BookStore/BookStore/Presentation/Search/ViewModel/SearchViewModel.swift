@@ -15,10 +15,10 @@ final class SearchViewModel: ObservableObject {
     var isLastPage = false
     
     private var cancellables = Set<AnyCancellable>()
-    private let searchUseCase: SearchUseCaseType
+    private let searchRepository: SearchRepositoryType
     
-    init(searchUseCase: SearchUseCaseType) {
-        self.searchUseCase = searchUseCase
+    init(searchRepository: SearchRepositoryType) {
+        self.searchRepository = searchRepository
         subscribeKeyword()
     }
     
@@ -40,16 +40,16 @@ final class SearchViewModel: ObservableObject {
     }
 
     func getNewBookList(with keyword: String) {
-        searchUseCase.getBookList(with: keyword, page: page)
+        searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
-            .catch({ error in
+            .catch { error in
                 Just(
                     BookList(
                         currentPage: "",
                         totalPage: "",
                         books: []
                     ))
-            })
+            }
             .sink { [weak self] bookList in
                 guard let self = self else {
                     return
@@ -64,7 +64,7 @@ final class SearchViewModel: ObservableObject {
     
     func loadMoreBookList() {
         self.page += 1
-        searchUseCase.getBookList(with: keyword, page: page)
+        searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
             .catch { error in
                 Just(

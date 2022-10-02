@@ -1,5 +1,5 @@
 //
-//  SpySearchUseCase.swift
+//  SpySearchRepository.swift
 //  BookStoreTests
 //
 //  Created by Siwon Kim on 2022/09/22.
@@ -10,23 +10,23 @@ import Combine
 
 @testable import BookStore
 
-class SpySearchUseCase: SearchUseCaseType {
-    private var getBookListCallCount: Int = 0
+class SpySearchRepository: SearchRepositoryType {
+    private var getResultCallCount: Int = 0
     var result: Result<BookList, Error>
     
     init(result: Result<BookList, Error>) {
         self.result = result
     }
     
-    func getBookList(with keyword: String, page: Int) -> AnyPublisher<BookList, Error> {
-        getBookListCallCount += 1
+    func getResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error> {
+        getResultCallCount += 1
         
         return result.publisher
             .eraseToAnyPublisher()
     }
     
-    func verifygetBookList(callCount: Int) {
-        XCTAssertEqual(getBookListCallCount, callCount)
+    func verifygetResult(callCount: Int) {
+        XCTAssertEqual(getResultCallCount, callCount)
     }
     
     
