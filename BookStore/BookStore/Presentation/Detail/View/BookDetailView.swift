@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    @ObservedObject var viewModel: BookDetailViewModel
+    @ObservedObject private var viewModel: BookDetailViewModel
     @State private var isWebViewPresented: Bool = false
     @State private var isComfirmationDialogPresented: Bool = false
     @State private var isMemoPresented: Bool = false
+    
+    init(viewModel: BookDetailViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -20,31 +24,21 @@ struct BookDetailView: View {
                 titleView
                 subtitleView
                 informationsView
+                addMemoButton
+                visitWebsiteButton
             }
             .padding(.all)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button() {
-                    isComfirmationDialogPresented = true
-                } label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                }
-                .confirmationDialog("add memo", isPresented: $isComfirmationDialogPresented, titleVisibility: .visible) {
-                    Button("add memo") {
-                        isMemoPresented = true
-                    }.sheet(isPresented: $isMemoPresented) {
-                        MemoView(isMemoPresented: $isMemoPresented)
+                toolBarButton
+                    .confirmationDialog("add memo", isPresented: $isComfirmationDialogPresented, titleVisibility: .visible) {
+                        addMemoButton
+                        visitWebsiteButton
                     }
-                    Button("visit website") {
-                        isWebViewPresented = true
-                    }
-                    .sheet(isPresented: $isWebViewPresented) {
-                        WebView(url: URL(string: "https://itbook.store/books/9781849517744")!)
-                    }
-                }
             }
+            
         }.onAppear {
             viewModel.getData(with: viewModel.book.isbn13)
         }
@@ -85,29 +79,72 @@ private extension BookDetailView {
         }
     }
     
+    var toolBarButton: some View {
+        Button() {
+            isComfirmationDialogPresented = true
+        } label: {
+            Image(systemName: "ellipsis.circle.fill")
+        }
+    }
+    
+    var addMemoButton: some View {
+        Button("add memo") {
+            isMemoPresented = true
+        }.sheet(isPresented: $isMemoPresented) {
+            MemoView(book: $viewModel.book, isMemoPresented: $isMemoPresented)
+        }
+    }
+    
+    var visitWebsiteButton: some View {
+        Button("visit website") {
+            isWebViewPresented = true
+        }
+        .sheet(isPresented: $isWebViewPresented) {
+            WebView(url: URL(string: "https://itbook.store/books/9781849517744")!)
+        }
+    }
+    
     var informationsView: some View {
         VStack {
             Divider()
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
-                    InformationView(title: "publisher", value: viewModel.bookDetail.publisher, imageName: "rectangle.and.pencil.and.ellipsis")
+                    informationView(title: "publisher", value: viewModel.bookDetail.publisher, imageName: "rectangle.and.pencil.and.ellipsis")
                         .padding(.all)
                     Divider()
-                    InformationView(title: "language", value: viewModel.bookDetail.language, imageName: "textformat.abc")
+                    informationView(title: "language", value: viewModel.bookDetail.language, imageName: "textformat.abc")
                         .padding(.all)
                     Divider()
-                    InformationView(title: "pages", value: viewModel.bookDetail.bookPages, imageName: "book")
+                    informationView(title: "pages", value: viewModel.bookDetail.bookPages, imageName: "book")
                         .padding(.all)
                     Divider()
-                    InformationView(title: "year", value: viewModel.bookDetail.year, imageName: "calendar")
+                    informationView(title: "year", value: viewModel.bookDetail.year, imageName: "calendar")
                         .padding(.all)
                     Divider()
-                    InformationView(title: "ratings", value: viewModel.bookDetail.rating, imageName: "star.leadinghalf.filled")
+                    informationView(title: "ratings", value: viewModel.bookDetail.rating, imageName: "star.leadinghalf.filled")
                         .padding(.all)
                 }
             }
             Divider()
         }
+    }
+    
+    func informationView(title: String, value: String, imageName: String) -> some View {
+        VStack(alignment: .center) {
+            Text(title)
+                .foregroundColor(.gray)
+                .padding(.bottom)
+            Spacer()
+            Image(systemName: imageName)
+                .font(.largeTitle)
+                .padding(.bottom)
+            Spacer()
+            Text(value)
+                .font(.callout)
+                .frame(width: 80, height: 20)
+                .minimumScaleFactor(0.5)
+        }
+        .frame(width: 80, height: 100)
     }
 }
 
