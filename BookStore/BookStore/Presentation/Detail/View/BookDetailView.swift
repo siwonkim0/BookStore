@@ -26,14 +26,26 @@ struct BookDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button {
-                    print("aa")
+                Button() {
+                    isComfirmationDialogPresented = true
                 } label: {
                     Image(systemName: "ellipsis.circle.fill")
                 }
+                .confirmationDialog("add memo", isPresented: $isComfirmationDialogPresented, titleVisibility: .visible) {
+                    Button("add memo") {
+                        isMemoPresented = true
+                    }.sheet(isPresented: $isMemoPresented) {
+                        MemoView(isMemoPresented: $isMemoPresented)
+                    }
+                    Button("visit website") {
+                        isWebViewPresented = true
+                    }
+                    .sheet(isPresented: $isWebViewPresented) {
+                        WebView(url: URL(string: "https://itbook.store/books/9781849517744")!)
+                    }
+                }
             }
-        }
-        .onAppear {
+        }.onAppear {
             viewModel.getData(with: viewModel.book.isbn13)
         }
     }
@@ -76,22 +88,22 @@ private extension BookDetailView {
     var informationsView: some View {
         VStack {
             Divider()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(alignment: .top) {
-                        InformationView(title: "publisher", value: viewModel.bookDetail.publisher, imageName: "rectangle.and.pencil.and.ellipsis")
-                            .padding(.all)
-                        Divider()
-                        InformationView(title: "language", value: viewModel.bookDetail.language, imageName: "textformat.abc")
-                            .padding(.all)
-                        Divider()
-                        InformationView(title: "pages", value: viewModel.bookDetail.bookPages, imageName: "book")
-                            .padding(.all)
-                        Divider()
-                        InformationView(title: "year", value: viewModel.bookDetail.year, imageName: "calendar")
-                            .padding(.all)
-                        Divider()
-                        InformationView(title: "ratings", value: viewModel.bookDetail.rating, imageName: "star.leadinghalf.filled")
-                            .padding(.all)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
+                    InformationView(title: "publisher", value: viewModel.bookDetail.publisher, imageName: "rectangle.and.pencil.and.ellipsis")
+                        .padding(.all)
+                    Divider()
+                    InformationView(title: "language", value: viewModel.bookDetail.language, imageName: "textformat.abc")
+                        .padding(.all)
+                    Divider()
+                    InformationView(title: "pages", value: viewModel.bookDetail.bookPages, imageName: "book")
+                        .padding(.all)
+                    Divider()
+                    InformationView(title: "year", value: viewModel.bookDetail.year, imageName: "calendar")
+                        .padding(.all)
+                    Divider()
+                    InformationView(title: "ratings", value: viewModel.bookDetail.rating, imageName: "star.leadinghalf.filled")
+                        .padding(.all)
                 }
             }
             Divider()
