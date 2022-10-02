@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct BookStoreApp: App {
-    @StateObject var viewModel = SearchViewModel(
+    let searchViewModel = SearchViewModel(
         searchUseCase: SearchUseCase(
             searchRepository: SearchRepository(
                 urlSessionManager: URLSessionManager(
@@ -19,8 +19,7 @@ struct BookStoreApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SearchView()
-                .environmentObject(viewModel)
+            SearchView(viewModel: searchViewModel)
         }
     }
 }

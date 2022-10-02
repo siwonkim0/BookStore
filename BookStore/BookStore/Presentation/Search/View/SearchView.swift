@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject private var viewModel: SearchViewModel
+    @ObservedObject private var viewModel: SearchViewModel
+    
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         navigationListView
@@ -23,9 +27,8 @@ private extension SearchView {
                 ZStack {
                     List {
                         ForEach(viewModel.books) { book in
-                            NavigationLink {
-                                BookDetailView()
-                                    .environmentObject(book)
+                            NavigationLink { () -> BookDetailView in
+                                BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager())))
                             } label: {
                                 SearchRow(book: book)
                                     .id(book.id)
@@ -41,7 +44,7 @@ private extension SearchView {
                     if viewModel.books.isEmpty {
                         introView
                     } else {
-                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy)
+                        ScrollToTopButtonView(id: viewModel.books[0].id, proxy: proxy) //computed property viemodel -> safe subscript 
                     }
                 }
             }
@@ -73,7 +76,6 @@ private extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
-            .environmentObject(SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared), coreDataManager: CoreDataManager()))))
+        SearchView(viewModel: SearchViewModel(searchUseCase: SearchUseCase(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(urlSession: URLSession.shared), coreDataManager: CoreDataManager()))))
     }
 }
