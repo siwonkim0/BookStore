@@ -32,7 +32,8 @@ final class SearchViewModelTests: XCTestCase {
                     isbn13: "123",
                     price: "$10",
                     image: "image",
-                    url: "url"
+                    url: "url",
+                    memo: ""
                 )
             ]
         )
@@ -47,7 +48,7 @@ final class SearchViewModelTests: XCTestCase {
         let keyword = "none"
 
         let promise = expectation(
-            description: "키워드가 바뀌면 page가 1, isLastPage가 false가 된다."
+            description: "키워드가 바뀌면 page가 1, isLastPage가 false가 되어야한다."
         )
 
         searchViewModel.$books
@@ -74,7 +75,8 @@ final class SearchViewModelTests: XCTestCase {
                     isbn13: "123",
                     price: "$10",
                     image: "image",
-                    url: "url"
+                    url: "url",
+                    memo: ""
                 )
             ]
         )
@@ -85,7 +87,7 @@ final class SearchViewModelTests: XCTestCase {
         
         searchViewModel.page = 200
         let promise = expectation(
-            description: "현재 페이지가 200일때 다음 페이지가 로딩되면 page가 201이 된다."
+            description: "현재 페이지가 200일때 다음 페이지가 로딩되면 page가 201이 되어야한다."
         )
 
         searchViewModel.$books
@@ -113,7 +115,8 @@ final class SearchViewModelTests: XCTestCase {
                     isbn13: "123",
                     price: "$10",
                     image: "image",
-                    url: "url"
+                    url: "url",
+                    memo: ""
                 )
             ]
         )

@@ -25,7 +25,6 @@ final class SearchViewModel: ObservableObject {
     private func subscribeKeyword() {
         $keyword
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .print()
             .sink { [weak self] keyword in
                 guard let self = self else {
                     return
