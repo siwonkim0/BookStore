@@ -9,7 +9,11 @@ import Foundation
 import SwiftUI
 
 struct SearchRow: View {
-    var book: Book
+    private let book: Book
+    
+    init(book: Book) {
+        self.book = book
+    }
     
     var body: some View {
         HStack {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoView: View {
-    @EnvironmentObject var book: Book
+    @Binding var book: Book
     @Binding var isMemoPresented: Bool
     
     var body: some View {
@@ -56,9 +56,8 @@ extension MemoView {
     }
 }
 
-struct MemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        MemoView(isMemoPresented: .constant(true))
-            .environmentObject(Book(id: UUID(), title: "sd", subtitle: "", isbn13: "", price: "", image: "", url: "", memo: ""))
-    }
-}
+//struct MemoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MemoView(book: Book(id: UUID(), title: "sd", subtitle: "", isbn13: "", price: "", image: "", url: "", memo: ""), isMemoPresented: true)
+//    }
+//}

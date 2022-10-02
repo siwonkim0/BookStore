@@ -10,11 +10,10 @@ import Combine
 
 final class BookDetailViewModel: ObservableObject {
     @Published var bookDetail: BookDetail = BookDetail(title: "", subtitle: "", authors: "", publisher: "", language: "", isbn13: "", bookPages: "", year: "", rating: "", description: "", price: "", imageUrl: "", url: "", pdf: PDF(chapter2: "", chapter5: ""))
-    let book: Book
+    var book: Book
     private var cancellables = Set<AnyCancellable>()
     private let repository: BookDetailRepository
 
-    
     init(book: Book, repository: BookDetailRepository) {
         self.book = book
         self.repository = repository
