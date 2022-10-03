@@ -42,10 +42,10 @@ final class SearchViewModel: ObservableObject {
     func getNewBookList(with keyword: String) {
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
-            .catch { error -> AnyPublisher<BookList, Never> in
+            .catch { [weak self] error -> AnyPublisher<BookList, Never> in
                 if let error = error as? URLSessionError, case .networkUnavailable = error {
-                    self.hasError = true
-                    self.error = error
+                    self?.hasError = true
+                    self?.error = error
                 }
                 return Just(
                     BookList(
@@ -71,7 +71,10 @@ final class SearchViewModel: ObservableObject {
         self.page += 1
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
-            .catch { error -> AnyPublisher<BookList, Never> in
+            .catch { [weak self] error -> AnyPublisher<BookList, Never> in
+                guard let self = self else {
+                    return
+                }
                 if let error = error as? URLSessionError, case .networkUnavailable = error {
                     self.hasError = true
                     self.error = error
@@ -84,9 +87,9 @@ final class SearchViewModel: ObservableObject {
                     ))
                 .eraseToAnyPublisher()
             }
-            .map { bookList -> BookList in
+            .map { [weak self] bookList -> BookList in
                 if bookList.books.isEmpty {
-                    self.isLastPage = true
+                    self?.isLastPage = true
                 }
                 return bookList
             }

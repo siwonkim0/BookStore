@@ -46,7 +46,10 @@ final class BookDetailViewModel: ObservableObject {
                         )))
             }
             .receive(on: DispatchQueue.main)
-            .sink { bookDetail in
+            .sink { [weak self] bookDetail in
+                guard let self = self else {
+                    return
+                }
                 self.bookDetail = bookDetail
             }
             .store(in: &cancellables)
