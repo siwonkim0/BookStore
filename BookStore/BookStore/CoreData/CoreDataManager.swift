@@ -18,15 +18,16 @@ protocol CoreDataManagerType {
 
 class CoreDataManager: CoreDataManagerType {
     static let persistentContainer = CoreDataManager()
-    private let container: NSPersistentContainer
+    private let container = NSPersistentContainer(name: "BookContainer")
     
     private init() {
-        self.container = NSPersistentContainer(name: "BookContainer")
-        self.container.loadPersistentStores { description, error in
+        loadPersistentContainer()
+    }
+    
+    private func loadPersistentContainer() {
+        container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error Loading Core Data. \(error.localizedDescription)")
-            } else {
-                print("Successfully loaded Core Data")
             }
         }
     }
@@ -41,7 +42,6 @@ class CoreDataManager: CoreDataManagerType {
             }
             return Future { promise in
                 promise(.success(entities))
-                print("core data cache, page:", entities[0].page!)
             }
         }
         .receive(on: DispatchQueue.main)
