@@ -42,12 +42,16 @@ final class SearchRepository: SearchRepositoryType {
             }
             .eraseToAnyPublisher()
             .receive(on: DispatchQueue.main)
-            .compactMap {
+            .tryMap {
                 print("urlsession, page:", page)
                 guard let bookList = $0.toDomain() else {
-                    return nil
+                    throw URLSessionError.invalidData
                 }
-                self.coreDataManager.add(bookList: bookList, keyword: keyword)
+                do {
+                    try self.coreDataManager.add(bookList: bookList, keyword: keyword)
+                } catch {
+                    throw CoreDataError.failedToAdd
+                }
                 return bookList
             }
             .eraseToAnyPublisher()

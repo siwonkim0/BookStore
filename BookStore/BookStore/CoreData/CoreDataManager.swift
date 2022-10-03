@@ -10,9 +10,10 @@ import CoreData
 import Combine
 
 protocol CoreDataManagerType {
+    //associated
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error>
-    func add(bookList: BookList, keyword: String)
-    func delete(entity: BookEntity)
+    func add(bookList: BookList, keyword: String) throws
+    func delete(entity: BookEntity) throws
 }
 
 class CoreDataManager: CoreDataManagerType {
@@ -52,9 +53,8 @@ class CoreDataManager: CoreDataManagerType {
 
     }
     
-    func add(bookList: BookList, keyword: String) {
+    func add(bookList: BookList, keyword: String) throws {
         bookList.books.forEach { book in
-            var order: Int = 1
             let bookEntity = BookEntity(context: container.viewContext)
             bookEntity.id = book.id
             bookEntity.title = book.title
@@ -63,26 +63,30 @@ class CoreDataManager: CoreDataManagerType {
             bookEntity.price = book.price
             bookEntity.imageUrl = book.image
             bookEntity.url = book.url
-            bookEntity.timeStamp = Date()
-            bookEntity.searchResultOrder = Int64(order)
             bookEntity.searchKeyword = keyword
             bookEntity.page = bookList.currentPage
-            
-            order += 1
-            save()
+        }
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToAdd
         }
     }
     
-    func delete(entity: BookEntity) {
+    func delete(entity: BookEntity) throws {
         container.viewContext.delete(entity)
-        save()
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToAdd
+        }
     }
     
-    private func save() {
+    private func save() throws {
         do {
             try container.viewContext.save()
         } catch {
-            print("error saving core data", error.localizedDescription)
+            throw CoreDataError.failedToSave
         }
     }
 }
