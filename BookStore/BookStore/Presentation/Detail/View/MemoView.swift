@@ -14,7 +14,6 @@ struct MemoView: View {
     
     var body: some View {
         VStack {
-            descriptionView
             textEditorView
             HStack {
                 submitButton
@@ -30,10 +29,6 @@ extension MemoView {
             .frame(height: 250)
             .padding(.all, .maximum(5, 5))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.gray))
-    }
-    
-    var descriptionView: some View {
-        Text("you can take memo here")
     }
     
     var submitButton: some View {
