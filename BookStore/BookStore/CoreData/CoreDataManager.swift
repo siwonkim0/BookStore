@@ -10,7 +10,6 @@ import CoreData
 import Combine
 
 protocol CoreDataManagerType {
-    //associated
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error>
     func add(bookList: BookList, keyword: String) throws
     func delete(entity: BookEntity) throws

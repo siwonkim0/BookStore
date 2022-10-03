@@ -13,12 +13,8 @@ protocol URLSessionManagerType {
 }
 
 final class URLSessionManager: URLSessionManagerType {
-    private let urlSession: URLSessionProtocol
-
-    init(urlSession: URLSessionProtocol = URLSession.shared) {
-        self.urlSession = urlSession
-    }
-
+    private let urlSession = URLSession.shared
+    
     // MARK: - Networking
     func performDataTask<T: NetworkRequest>(urlRequest: T) -> AnyPublisher<T.ResponseType, Error> {
         guard let request = urlRequest.urlRequest else {
