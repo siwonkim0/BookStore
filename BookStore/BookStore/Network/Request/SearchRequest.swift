@@ -11,9 +11,8 @@ struct SearchRequest: NetworkRequest {
     typealias ResponseType = BookListDTO
     
     var httpMethod: HttpMethod = .get
-    var urlHost: String = BookStoreURLHost.search.description
+    var urlHost: String = BookStoreURLHost.search.urlString
     var urlPath: String
-    var page: String
     var httpHeader: [String: String]?
     var httpBody: Data?
 }

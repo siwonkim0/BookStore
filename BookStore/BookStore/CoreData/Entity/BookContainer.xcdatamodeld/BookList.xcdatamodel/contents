@@ -4,17 +4,16 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="isbn13" optional="YES" attributeType="String"/>
+        <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="page" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="searchKeyword" optional="YES" attributeType="String"/>
-        <attribute name="searchResultOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String"/>
-        <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="totalPage" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BookEntity" positionX="-63" positionY="-18" width="128" height="209"/>
+        <element name="BookEntity" positionX="-63" positionY="-18" width="128" height="194"/>
     </elements>
 </model>

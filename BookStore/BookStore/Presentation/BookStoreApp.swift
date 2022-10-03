@@ -9,18 +9,14 @@ import SwiftUI
 
 @main
 struct BookStoreApp: App {
-    @StateObject var viewModel = SearchViewModel(
-        searchUseCase: SearchUseCase(
-            searchRepository: SearchRepository(
-                urlSessionManager: URLSessionManager(
-                    urlSession: URLSession.shared
-                ), coreDataManager: CoreDataManager()
-            )))
+    let searchViewModel = SearchViewModel(
+        searchRepository: SearchRepository(
+            urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager.persistentContainer
+            ))
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(viewModel)
+            SearchView(viewModel: searchViewModel)
         }
     }
 }

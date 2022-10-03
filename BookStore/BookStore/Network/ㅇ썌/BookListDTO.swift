@@ -47,7 +47,8 @@ extension BookListDTO {
                     isbn13: $0.isbn13,
                     price: price,
                     image: $0.image,
-                    url: $0.url
+                    url: $0.url,
+                    memo: ""
                 )
             }
         )

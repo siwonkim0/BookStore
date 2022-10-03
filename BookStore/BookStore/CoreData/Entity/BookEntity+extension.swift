@@ -16,7 +16,8 @@ extension BookEntity {
             isbn13: self.isbn13 ?? "",
             price: self.price ?? "",
             image: self.imageUrl ?? "",
-            url: self.url ?? ""
+            url: self.url ?? "",
+            memo: self.memo ?? ""
         )
     }
 }

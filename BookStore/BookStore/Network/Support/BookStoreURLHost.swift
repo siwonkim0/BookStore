@@ -11,7 +11,7 @@ enum BookStoreURLHost {
     case search
     case detail
     
-    var description: String {
+    var urlString: String {
         switch self {
         case .search:
             return "https://api.itbook.store/1.0/search/"

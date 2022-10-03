@@ -11,31 +11,29 @@ import Combine
 
 protocol CoreDataManagerType {
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error>
-    func add(bookList: BookList, keyword: String)
-    func delete(entity: BookEntity)
+    func add(bookList: BookList, keyword: String) throws
+    func delete(entity: BookEntity) throws
+    func update(entity: BookEntity) throws
 }
 
 class CoreDataManager: CoreDataManagerType {
-    private let container: NSPersistentContainer
+    static let persistentContainer = CoreDataManager()
+    private let container = NSPersistentContainer(name: "BookContainer")
     
-    init() {
-        self.container = NSPersistentContainer(name: "SearchResultsContainer")
-        self.container.loadPersistentStores { description, error in
+    private init() {
+        loadPersistentContainer()
+    }
+    
+    private func loadPersistentContainer() {
+        container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error Loading Core Data. \(error.localizedDescription)")
-            } else {
-                print("Successfully loaded Core Data")
             }
         }
     }
 
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error> {
-        return Deferred { [weak self] () -> Future<[BookEntity], Error> in
-            guard let self = self else {
-                return Future<[BookEntity], Error> { promise in
-                    promise(.failure(CoreDataError.invalidData))
-                }
-            }
+        return Deferred { () -> Future<[BookEntity], Error> in
             guard let entities = try? self.container.viewContext.fetch(request),
                   entities.count != 0 else {
                 return Future<[BookEntity], Error> { promise in
@@ -44,7 +42,6 @@ class CoreDataManager: CoreDataManagerType {
             }
             return Future { promise in
                 promise(.success(entities))
-                print("core data cache, page:", entities[0].page!)
             }
         }
         .receive(on: DispatchQueue.main)
@@ -52,9 +49,8 @@ class CoreDataManager: CoreDataManagerType {
 
     }
     
-    func add(bookList: BookList, keyword: String) {
+    func add(bookList: BookList, keyword: String) throws {
         bookList.books.forEach { book in
-            var order: Int = 1
             let bookEntity = BookEntity(context: container.viewContext)
             bookEntity.id = book.id
             bookEntity.title = book.title
@@ -63,26 +59,38 @@ class CoreDataManager: CoreDataManagerType {
             bookEntity.price = book.price
             bookEntity.imageUrl = book.image
             bookEntity.url = book.url
-            bookEntity.timeStamp = Date()
-            bookEntity.searchResultOrder = Int64(order)
             bookEntity.searchKeyword = keyword
             bookEntity.page = bookList.currentPage
-            
-            order += 1
-            save()
+        }
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToAdd
         }
     }
     
-    func delete(entity: BookEntity) {
+    func delete(entity: BookEntity) throws {
         container.viewContext.delete(entity)
-        save()
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToAdd
+        }
     }
     
-    private func save() {
+    func update(entity: BookEntity) throws {
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToUpdate
+        }
+    }
+    
+    private func save() throws {
         do {
             try container.viewContext.save()
         } catch {
-            print("error saving core data", error.localizedDescription)
+            throw CoreDataError.failedToSave
         }
     }
 }

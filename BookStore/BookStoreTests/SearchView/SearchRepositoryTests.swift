@@ -21,7 +21,7 @@ final class SearchRepositoryTests: XCTestCase {
         cancellables = []
     }
     
-    func test_getDataFromServerIfNoCachedDataExists() {
+    func test_CoreData에_캐시되어있지_않다면_서버에서_새로_받아온다() {
         guard let path = Bundle.main.path(forResource: "BookListData", ofType: "json"),
               let jsonString = try? String(contentsOfFile: path),
               let data = jsonString.data(using: .utf8) else {
@@ -52,7 +52,7 @@ final class SearchRepositoryTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_getDataFromCoreDataIfCachedDataExists() {
+    func test_CoreData에_캐시되어있다면_캐시_데이터를_불러온다() {
         let coreDataContext = TestCoreDataPersistentContainer.persistentContainer.viewContext
         let bookEntity = BookEntity(context: coreDataContext)
         bookEntity.totalPage = "10"
@@ -80,7 +80,7 @@ final class SearchRepositoryTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_makeErrorWhenTotalResultIsZero() {
+    func test_서버_데이터의_total이_0이라면_error를_발생시켜야한다() {
         guard let path = Bundle.main.path(forResource: "BookListInvalidData", ofType: "json"),
               let jsonString = try? String(contentsOfFile: path),
               let data = jsonString.data(using: .utf8) else {
@@ -111,7 +111,7 @@ final class SearchRepositoryTests: XCTestCase {
         wait(for: [promise], timeout: 1)
     }
     
-    func test_totalResultsConvertsToTotalPagesCorrectly() {
+    func test_받아올_전체_result의_수가_123개이면_totalPage는_13이_되어야한다() {
         guard let path = Bundle.main.path(forResource: "BookListDataSecond", ofType: "json"),
               let jsonString = try? String(contentsOfFile: path),
               let data = jsonString.data(using: .utf8) else {

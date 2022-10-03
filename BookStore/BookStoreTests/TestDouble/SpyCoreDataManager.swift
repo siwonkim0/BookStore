@@ -34,6 +34,10 @@ final class SpyCoreDataManager: CoreDataManagerType {
         //..
     }
     
+    func update(entity: BookEntity) throws {
+        //..
+    }
+
     func verifyFetch(callCount: Int) {
         XCTAssertEqual(fetchCallCount, callCount)
     }

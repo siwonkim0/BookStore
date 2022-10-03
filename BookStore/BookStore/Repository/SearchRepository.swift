@@ -9,6 +9,10 @@ import Foundation
 import Combine
 import CoreData
 
+protocol SearchRepositoryType {
+    func getResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error>
+}
+
 final class SearchRepository: SearchRepositoryType {
     private let urlSessionManager: URLSessionManagerType
     private let coreDataManager: CoreDataManagerType
@@ -27,7 +31,7 @@ final class SearchRepository: SearchRepositoryType {
     }
     
     private func getNewResult(with keyword: String, page: String) -> AnyPublisher<BookList, Error> {
-        let request = SearchRequest(urlPath: keyword, page: page)
+        let request = SearchRequest(urlPath: keyword + "/" + page)
         return urlSessionManager.performDataTask(urlRequest: request)
             .tryMap { bookListDTO -> BookListDTO in
                 if bookListDTO.total == "0" {
@@ -38,12 +42,16 @@ final class SearchRepository: SearchRepositoryType {
             }
             .eraseToAnyPublisher()
             .receive(on: DispatchQueue.main)
-            .compactMap {
+            .tryMap {
                 print("urlsession, page:", page)
                 guard let bookList = $0.toDomain() else {
-                    return nil
+                    throw URLSessionError.invalidData
                 }
-                self.coreDataManager.add(bookList: bookList, keyword: keyword)
+                do {
+                    try self.coreDataManager.add(bookList: bookList, keyword: keyword)
+                } catch {
+                    throw CoreDataError.failedToAdd
+                }
                 return bookList
             }
             .eraseToAnyPublisher()
