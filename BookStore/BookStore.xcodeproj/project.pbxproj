@@ -247,7 +247,7 @@
 		EA4823AB28D87465007ED9B4 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
-				EA0FB1F128EADA0600245640 /* Extension */,
+				EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */,
 				EA4823F328D88FAB007ED9B4 /* Presentation */,
 				EA4823EC28D87B29007ED9B4 /* Repository */,
 				EA0FB1D728E6DAD000245640 /* CoreData */,
@@ -269,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				EAA6A38128DC9C3500AF657F /* SearchView */,
-				EAA6A38028DC9C1B00AF657F /* TestDouble */,
 			);
 			path = BookStoreTests;
 			sourceTree = "<group>";
@@ -343,7 +342,7 @@
 		EA4823F328D88FAB007ED9B4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				EA4823AC28D87465007ED9B4 /* BookStoreApp.swift */,
+				EA0FB1F128EADA0600245640 /* Extension */,
 				EA0FB1D828E6E69900245640 /* Search */,
 				EA0FB1D928E6E6A900245640 /* Detail */,
 			);
@@ -390,6 +389,7 @@
 		EAA6A38128DC9C3500AF657F /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
+				EAA6A38028DC9C1B00AF657F /* TestDouble */,
 				EA4823BD28D87465007ED9B4 /* SearchViewModelTests.swift */,
 				EA3EAFF128E6A255008D548D /* SearchRepositoryTests.swift */,
 			);
