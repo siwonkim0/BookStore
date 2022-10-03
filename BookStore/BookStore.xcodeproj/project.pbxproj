@@ -15,6 +15,7 @@
 		EA0FB1E928E82D5600245640 /* BookDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */; };
 		EA0FB1ED28E9540E00245640 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1EC28E9540E00245640 /* MemoView.swift */; };
 		EA0FB1EF28E9D04300245640 /* BookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1EE28E9D04300245640 /* BookDetail.swift */; };
+		EA0FB1F328EADA1800245640 /* Publisher+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0FB1F228EADA1800245640 /* Publisher+extension.swift */; };
 		EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC228E46984008D548D /* BookContainer.xcdatamodeld */; };
 		EA3EAFC828E48F3E008D548D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */; };
 		EA3EAFCA28E56D77008D548D /* BookEntity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3EAFC928E56D77008D548D /* BookEntity+extension.swift */; };
@@ -74,6 +75,7 @@
 		EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailDTO.swift; sourceTree = "<group>"; };
 		EA0FB1EC28E9540E00245640 /* MemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		EA0FB1EE28E9D04300245640 /* BookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetail.swift; sourceTree = "<group>"; };
+		EA0FB1F228EADA1800245640 /* Publisher+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+extension.swift"; sourceTree = "<group>"; };
 		EA3EAFC328E46984008D548D /* BookList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookList.xcdatamodel; sourceTree = "<group>"; };
 		EA3EAFC728E48F3E008D548D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		EA3EAFC928E56D77008D548D /* BookEntity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookEntity+extension.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EA0FB1F128EADA0600245640 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EA0FB1F228EADA1800245640 /* Publisher+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		EA4823A028D87465007ED9B4 = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +249,7 @@
 		EA4823AB28D87465007ED9B4 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				EA0FB1F128EADA0600245640 /* Extension */,
 				EA4823F328D88FAB007ED9B4 /* Presentation */,
 				EA4823EC28D87B29007ED9B4 /* Repository */,
 				EA0FB1D728E6DAD000245640 /* CoreData */,
@@ -545,6 +556,7 @@
 				EA4823E628D876E3007ED9B4 /* SearchRequest.swift in Sources */,
 				EA0FB1E728E82D3900245640 /* BookDetailRequest.swift in Sources */,
 				EA0FB1E528E82B9200245640 /* BookDetailRepository.swift in Sources */,
+				EA0FB1F328EADA1800245640 /* Publisher+extension.swift in Sources */,
 				EA3EAFC428E46984008D548D /* BookContainer.xcdatamodeld in Sources */,
 				EA0FB1E928E82D5600245640 /* BookDetailDTO.swift in Sources */,
 				EA4823AD28D87465007ED9B4 /* BookStoreApp.swift in Sources */,

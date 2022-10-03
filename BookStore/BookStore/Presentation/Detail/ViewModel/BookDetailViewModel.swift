@@ -50,10 +50,8 @@ final class BookDetailViewModel: ObservableObject {
                         )))
             }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] bookDetail in
-                guard let self = self else {
-                    return
-                }
+            .withUnretained(self)
+            .sink { (self, bookDetail) in
                 self.bookDetail = bookDetail
             }
             .store(in: &cancellables)
@@ -61,10 +59,8 @@ final class BookDetailViewModel: ObservableObject {
     
     private func subscribeSaveMemoButton() {
         $saveMemo
-            .sink { [weak self] save in
-                guard let self = self else {
-                    return
-                }
+            .withUnretained(self)
+            .sink { (self, save) in
                 if save {
                     self.saveBookMemo()
                 }

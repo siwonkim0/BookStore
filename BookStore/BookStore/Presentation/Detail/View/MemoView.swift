@@ -39,6 +39,7 @@ extension MemoView {
     var submitButton: some View {
         Button("save") {
             saveMemo = true
+            isMemoPresented = false
         }
         .foregroundColor(.white)
         .font(.headline)

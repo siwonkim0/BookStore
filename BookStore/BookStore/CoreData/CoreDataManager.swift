@@ -32,12 +32,7 @@ class CoreDataManager: CoreDataManagerType {
     }
 
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error> {
-        return Deferred { [weak self] () -> Future<[BookEntity], Error> in
-            guard let self = self else {
-                return Future<[BookEntity], Error> { promise in
-                    promise(.failure(CoreDataError.invalidData))
-                }
-            }
+        return Deferred { () -> Future<[BookEntity], Error> in
             guard let entities = try? self.container.viewContext.fetch(request),
                   entities.count != 0 else {
                 return Future<[BookEntity], Error> { promise in

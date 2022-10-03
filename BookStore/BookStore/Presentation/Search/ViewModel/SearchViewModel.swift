@@ -26,10 +26,8 @@ final class SearchViewModel: ObservableObject {
     
     func getNewBookList(with keyword: String) {
         getBookList()
-            .sink { [weak self] bookList in
-                guard let self = self else {
-                    return
-                }
+            .withUnretained(self)
+            .sink { (self, bookList) in
                 if bookList.totalPage == "1" {
                     self.isLastPage = true
                 }
@@ -41,16 +39,15 @@ final class SearchViewModel: ObservableObject {
     func loadMoreBookList() {
         self.page += 1
         getBookList()
-            .map { [weak self] bookList -> BookList in
+            .withUnretained(self)
+            .map { (self, bookList) -> BookList in
                 if bookList.books.isEmpty {
-                    self?.isLastPage = true
+                    self.isLastPage = true
                 }
                 return bookList
             }
-            .sink { [weak self] bookList in
-                guard let self = self else {
-                    return
-                }
+            .withUnretained(self)
+            .sink { (self, bookList) in
                 self.books.append(contentsOf: bookList.books)
             }
             .store(in: &cancellables)
@@ -78,10 +75,8 @@ final class SearchViewModel: ObservableObject {
     private func subscribeKeyword() {
         $keyword
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .sink { [weak self] keyword in
-                guard let self = self else {
-                    return
-                }
+            .withUnretained(self)
+            .sink { (self, keyword) in
                 self.resetStates()
                 if keyword.count > 1 {
                     self.getNewBookList(with: keyword)
