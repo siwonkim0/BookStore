@@ -7,12 +7,15 @@
 
 import Foundation
 
-enum CoreDataError: Error {
+enum CoreDataError: LocalizedError {
     case invalidData
     case failedToSave
     case failedToAdd
     case failedToDelete
-    
+    case failedToUpdate
+}
+
+extension CoreDataError {
     var errorDescription: String {
         switch self {
         case .invalidData:
@@ -22,7 +25,9 @@ enum CoreDataError: Error {
         case .failedToAdd:
             return "failedToAdd"
         case .failedToDelete:
-            return "failedToAdd"
+            return "failedToDelete"
+        case .failedToUpdate:
+            return "failedToUpdate"
         }
     }
 }

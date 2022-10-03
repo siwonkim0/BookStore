@@ -14,6 +14,7 @@ protocol CoreDataManagerType {
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error>
     func add(bookList: BookList, keyword: String) throws
     func delete(entity: BookEntity) throws
+    func update(entity: BookEntity) throws
 }
 
 class CoreDataManager: CoreDataManagerType {
@@ -79,6 +80,14 @@ class CoreDataManager: CoreDataManagerType {
             try save()
         } catch {
             throw CoreDataError.failedToAdd
+        }
+    }
+    
+    func update(entity: BookEntity) throws {
+        do {
+            try save()
+        } catch {
+            throw CoreDataError.failedToUpdate
         }
     }
     

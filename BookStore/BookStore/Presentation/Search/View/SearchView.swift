@@ -47,7 +47,8 @@ private extension SearchView {
                     viewModel: BookDetailViewModel(
                         book: book,
                         repository: BookDetailRepository(
-                            urlSessionManager: URLSessionManager()
+                            urlSessionManager: URLSessionManager(),
+                            coreDataManager: CoreDataManager()
                         )))
             } label: {
                 SearchRow(book: book)
