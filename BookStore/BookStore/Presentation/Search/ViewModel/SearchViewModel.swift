@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 final class SearchViewModel: ObservableObject {
+    @Published var error: URLSessionError?
+    @Published var hasError = false
     @Published var keyword: String = ""
     @Published var books: [Book] = []
     var page: Int = 1
@@ -29,9 +31,7 @@ final class SearchViewModel: ObservableObject {
                 guard let self = self else {
                     return
                 }
-                self.page = 1
-                self.isLastPage = false
-                self.books = []
+                self.resetStates()
                 if keyword.count > 1 {
                     self.getNewBookList(with: keyword)
                 }
@@ -42,13 +42,18 @@ final class SearchViewModel: ObservableObject {
     func getNewBookList(with keyword: String) {
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
-            .catch { error in
-                Just(
+            .catch { error -> AnyPublisher<BookList, Never> in
+                if let error = error as? URLSessionError, case .networkUnavailable = error {
+                    self.hasError = true
+                    self.error = error
+                }
+                return Just(
                     BookList(
                         currentPage: "",
                         totalPage: "",
                         books: []
                     ))
+                .eraseToAnyPublisher()
             }
             .sink { [weak self] bookList in
                 guard let self = self else {
@@ -66,13 +71,18 @@ final class SearchViewModel: ObservableObject {
         self.page += 1
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
-            .catch { error in
-                Just(
+            .catch { error -> AnyPublisher<BookList, Never> in
+                if let error = error as? URLSessionError, case .networkUnavailable = error {
+                    self.hasError = true
+                    self.error = error
+                }
+                return Just(
                     BookList(
                         currentPage: "",
                         totalPage: "",
                         books: []
                     ))
+                .eraseToAnyPublisher()
             }
             .map { bookList -> BookList in
                 if bookList.books.isEmpty {
@@ -102,5 +112,11 @@ extension SearchViewModel {
     
     var firstSearchResultId: UUID {
         books[0].id
+    }
+    
+    func resetStates() {
+        self.page = 1
+        self.isLastPage = false
+        self.books = []
     }
 }

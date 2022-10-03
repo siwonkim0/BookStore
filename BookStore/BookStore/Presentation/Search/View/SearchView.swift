@@ -25,6 +25,7 @@ struct SearchView: View {
                         }
                     }
                     .navigationTitle("Books")
+                    .alert(isPresented: $viewModel.hasError, error: viewModel.error) { }
                     if viewModel.showIntroView {
                         introView
                     } else {

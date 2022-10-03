@@ -8,27 +8,29 @@
 import Foundation
 
 enum URLSessionError: LocalizedError {
+    case networkUnavailable
     case invalidRequest
-    case requestFailed(description: String)
-    case responseFailed(code: Int)
+    case responseFailed
     case invalidData
     case invalidURL
     case decodingFailed
-    
-    var errorDescription: String {
+}
+
+extension URLSessionError {
+    var errorDescription: String? {
         switch self {
+        case .networkUnavailable:
+            return "The Internet connection appears to be offline"
         case .invalidRequest:
-            return "invalidRequest"
-        case .requestFailed(let description):
-            return description
-        case .responseFailed(let code):
-            return "statusCode: \(code)"
+            return "Request appears to be not valid"
+        case .responseFailed:
+            return "Response appears to be failed"
         case .invalidData:
-            return "invaildData"
+            return "Response data appears to be not valid"
         case .invalidURL:
-            return "invaildURL"
+            return "URL appears to be not valid"
         case .decodingFailed:
-            return "decodingFailed"
+            return "Decoding appears to be failed"
         }
     }
 }

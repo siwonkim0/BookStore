@@ -25,14 +25,22 @@ final class URLSessionManager: URLSessionManagerType {
             return Fail(error: URLSessionError.invalidRequest).eraseToAnyPublisher()
         }
         return urlSession.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                if let httpResponse = response as? HTTPURLResponse,
-                   httpResponse.statusCode >= 300 {
-                    throw URLSessionError.responseFailed(code: httpResponse.statusCode)
-                }
-                return data
+            .mapError { (networkError : URLError) -> Error  in
+                return URLSessionError.networkUnavailable
             }
-            .decode(type: T.ResponseType.self, decoder: JSONDecoder())
+            .tryMap { data, response -> T.ResponseType in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200..<300).contains(httpResponse.statusCode) else {
+                    throw URLSessionError.responseFailed
+                }
+                let decoder = JSONDecoder()
+                
+                do {
+                    return try decoder.decode(T.ResponseType.self, from: data)
+                } catch {
+                    throw URLSessionError.decodingFailed
+                }
+            }
             .eraseToAnyPublisher()
     }
     
