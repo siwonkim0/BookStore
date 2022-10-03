@@ -20,6 +20,8 @@
 |<img src="https://i.imgur.com/iZqIZra.gif" width="200" height="400"/>|<img src="https://i.imgur.com/Y3m0qAH.png" width="200" height="400"/>|
 
 ### 상세 화면
+- 사용자가 메모를 추가하면 CoreData에 저장됩니다.
+
 |새 메모 추가|웹뷰 표시|
 |---|---|
 |<img src="https://user-images.githubusercontent.com/60725934/193577274-5086b937-1b7e-4731-be34-5039f00f94ed.gif" width="200" height="400"/>|<img src="https://user-images.githubusercontent.com/60725934/193577538-c5789898-7175-45f7-907b-5a1e2c16e8d1.gif" width="200" height="400"/>|
