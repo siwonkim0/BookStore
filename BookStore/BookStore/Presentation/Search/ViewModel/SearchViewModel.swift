@@ -25,21 +25,7 @@ final class SearchViewModel: ObservableObject {
     }
     
     func getNewBookList(with keyword: String) {
-        searchRepository.getResult(with: keyword, page: String(page))
-            .receive(on: DispatchQueue.main)
-            .catch { [weak self] error -> AnyPublisher<BookList, Never> in
-                if let error = error as? URLSessionError, case .networkUnavailable = error {
-                    self?.hasError = true
-                    self?.error = error
-                }
-                return Just(
-                    BookList(
-                        currentPage: "",
-                        totalPage: "",
-                        books: []
-                    ))
-                .eraseToAnyPublisher()
-            }
+        getBookList()
             .sink { [weak self] bookList in
                 guard let self = self else {
                     return
@@ -54,6 +40,23 @@ final class SearchViewModel: ObservableObject {
     
     func loadMoreBookList() {
         self.page += 1
+        getBookList()
+            .map { [weak self] bookList -> BookList in
+                if bookList.books.isEmpty {
+                    self?.isLastPage = true
+                }
+                return bookList
+            }
+            .sink { [weak self] bookList in
+                guard let self = self else {
+                    return
+                }
+                self.books.append(contentsOf: bookList.books)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func getBookList() -> AnyPublisher<BookList, Never> {
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
             .catch { [weak self] error -> AnyPublisher<BookList, Never> in
@@ -69,19 +72,7 @@ final class SearchViewModel: ObservableObject {
                     ))
                 .eraseToAnyPublisher()
             }
-            .map { [weak self] bookList -> BookList in
-                if bookList.books.isEmpty {
-                    self?.isLastPage = true
-                }
-                return bookList
-            }
-            .sink { [weak self] bookList in
-                guard let self = self else {
-                    return
-                }
-                self.books.append(contentsOf: bookList.books)
-            }
-            .store(in: &cancellables)
+            .eraseToAnyPublisher()
     }
     
     private func subscribeKeyword() {
