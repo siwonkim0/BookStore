@@ -72,12 +72,9 @@ final class SearchViewModel: ObservableObject {
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
             .catch { [weak self] error -> AnyPublisher<BookList, Never> in
-                guard let self = self else {
-                    return
-                }
                 if let error = error as? URLSessionError, case .networkUnavailable = error {
-                    self.hasError = true
-                    self.error = error
+                    self?.hasError = true
+                    self?.error = error
                 }
                 return Just(
                     BookList(
