@@ -9,6 +9,9 @@ import Foundation
 import Combine
 
 final class BookDetailViewModel: ObservableObject {
+    @Published var error: CoreDataError?
+    @Published var hasError = false
+    @Published var saveMemo: Bool = false
     @Published var isWebViewPresented: Bool = false
     @Published var isComfirmationDialogPresented: Bool = false
     @Published var isMemoPresented: Bool = false
@@ -20,6 +23,7 @@ final class BookDetailViewModel: ObservableObject {
     init(book: Book, repository: BookDetailRepository) {
         self.book = book
         self.repository = repository
+        updateMemo()
     }
     
     func getData(with isbn: String) {
@@ -53,5 +57,34 @@ final class BookDetailViewModel: ObservableObject {
                 self.bookDetail = bookDetail
             }
             .store(in: &cancellables)
+    }
+    
+    func updateMemo() {
+        $saveMemo
+            .sink { [weak self] save in
+                guard let self = self else {
+                    return
+                }
+                if save {
+                    self.saveBookMemo()
+                }
+            }.store(in: &self.cancellables)
+    }
+    
+    private func saveBookMemo() {
+        self.repository.saveBookMemo(book: self.book)
+            .catch { [weak self] error -> AnyPublisher<Book, Never> in
+                if let error = error as? CoreDataError, case .failedToUpdate = error {
+                    self?.hasError = true
+                    self?.error = error
+                }
+                return Just(
+                    Book(id: UUID(), title: "", subtitle: "", isbn13: "", price: "", image: "", url: "", memo: ""))
+                .eraseToAnyPublisher()
+            }
+            .sink { _ in
+                //success alert
+            }
+            .store(in: &self.cancellables)
     }
 }

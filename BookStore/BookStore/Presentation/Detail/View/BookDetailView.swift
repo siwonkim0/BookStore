@@ -31,10 +31,10 @@ struct BookDetailView: View {
             ToolbarItem(placement: .primaryAction) {
                 toolBarButton
             }
-            
         }.onAppear {
             viewModel.getData(with: viewModel.book.isbn13)
         }
+        .alert(isPresented: $viewModel.hasError, error: viewModel.error) { }
     }
 }
 
@@ -88,7 +88,7 @@ private extension BookDetailView {
         Button("add memo") {
             viewModel.isMemoPresented = true
         }.sheet(isPresented: $viewModel.isMemoPresented) {
-            MemoView(book: $viewModel.book, isMemoPresented: $viewModel.isMemoPresented)
+            MemoView(book: $viewModel.book, isMemoPresented: $viewModel.isMemoPresented, saveMemo: $viewModel.saveMemo)
         }
     }
     
@@ -148,6 +148,6 @@ private extension BookDetailView {
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let book = Book(id: UUID(), title: "book", subtitle: "sub", isbn13: "sub", price: "sub", image: "sub", url: "sub", memo: "sub")
-        BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager())))
+        BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager())))
     }
 }

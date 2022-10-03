@@ -10,6 +10,7 @@ import SwiftUI
 struct MemoView: View {
     @Binding var book: Book
     @Binding var isMemoPresented: Bool
+    @Binding var saveMemo: Bool
     
     var body: some View {
         VStack {
@@ -37,7 +38,7 @@ extension MemoView {
     
     var submitButton: some View {
         Button("save") {
-            print("aaaa")
+            saveMemo = true
         }
         .foregroundColor(.white)
         .font(.headline)
