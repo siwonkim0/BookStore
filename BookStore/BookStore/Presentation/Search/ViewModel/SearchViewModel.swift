@@ -24,21 +24,6 @@ final class SearchViewModel: ObservableObject {
         subscribeKeyword()
     }
     
-    private func subscribeKeyword() {
-        $keyword
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .sink { [weak self] keyword in
-                guard let self = self else {
-                    return
-                }
-                self.resetStates()
-                if keyword.count > 1 {
-                    self.getNewBookList(with: keyword)
-                }
-            }
-            .store(in: &cancellables)
-    }
-
     func getNewBookList(with keyword: String) {
         searchRepository.getResult(with: keyword, page: String(page))
             .receive(on: DispatchQueue.main)
@@ -99,6 +84,20 @@ final class SearchViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    private func subscribeKeyword() {
+        $keyword
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] keyword in
+                guard let self = self else {
+                    return
+                }
+                self.resetStates()
+                if keyword.count > 1 {
+                    self.getNewBookList(with: keyword)
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
 
 extension SearchViewModel {

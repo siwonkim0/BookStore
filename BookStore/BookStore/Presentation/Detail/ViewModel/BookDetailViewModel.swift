@@ -23,7 +23,7 @@ final class BookDetailViewModel: ObservableObject {
     init(book: Book, repository: BookDetailRepository) {
         self.book = book
         self.repository = repository
-        updateMemo()
+        subscribeSaveMemoButton()
     }
     
     func getData(with isbn: String) {
@@ -59,7 +59,7 @@ final class BookDetailViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func updateMemo() {
+    private func subscribeSaveMemoButton() {
         $saveMemo
             .sink { [weak self] save in
                 guard let self = self else {
