@@ -21,10 +21,11 @@ struct BookDetailView: View {
                 titleView
                 subtitleView
                 informationsView
-                addMemoButton
-                visitWebsiteButton
+                HStack {
+                    addMemoButton
+                    visitWebsiteButton
+                }
             }
-            .padding(.all)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -70,6 +71,7 @@ private extension BookDetailView {
             Text("\(viewModel.bookDetail.price)")
             Text("\(viewModel.bookDetail.description)")
         }
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
     
     var toolBarButton: some View {
@@ -78,7 +80,7 @@ private extension BookDetailView {
         } label: {
             Image(systemName: "ellipsis.circle.fill")
         }
-        .confirmationDialog("add memo", isPresented: $viewModel.isComfirmationDialogPresented, titleVisibility: .visible) {
+        .confirmationDialog("add memo", isPresented: $viewModel.isComfirmationDialogPresented) {
             addMemoButton
             visitWebsiteButton
         }
@@ -87,7 +89,13 @@ private extension BookDetailView {
     var addMemoButton: some View {
         Button("add memo") {
             viewModel.isMemoPresented = true
-        }.sheet(isPresented: $viewModel.isMemoPresented) {
+        }
+        .padding()
+        .foregroundColor(.white)
+        .font(.system(size: 10, weight: .bold, design: .default))
+        .background(.green)
+        .cornerRadius(20)
+        .sheet(isPresented: $viewModel.isMemoPresented) {
             MemoView(book: $viewModel.book, isMemoPresented: $viewModel.isMemoPresented, saveMemo: $viewModel.saveMemo)
         }
     }
@@ -96,6 +104,11 @@ private extension BookDetailView {
         Button("visit website") {
             viewModel.isWebViewPresented = true
         }
+        .padding()
+        .foregroundColor(.white)
+        .font(.system(size: 10, weight: .bold, design: .default))
+        .background(.blue)
+        .cornerRadius(20)
         .sheet(isPresented: $viewModel.isWebViewPresented) {
             WebView(url: URL(string: viewModel.book.url)!)
         }
@@ -148,6 +161,6 @@ private extension BookDetailView {
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let book = Book(id: UUID(), title: "book", subtitle: "sub", isbn13: "sub", price: "sub", image: "sub", url: "sub", memo: "sub")
-        BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager())))
+        BookDetailView(viewModel: BookDetailViewModel(book: book, repository: BookDetailRepository(urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager.persistentContainer)))
     }
 }

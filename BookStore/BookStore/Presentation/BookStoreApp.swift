@@ -11,7 +11,7 @@ import SwiftUI
 struct BookStoreApp: App {
     let searchViewModel = SearchViewModel(
         searchRepository: SearchRepository(
-                urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager()
+            urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager.persistentContainer
             ))
     
     var body: some Scene {

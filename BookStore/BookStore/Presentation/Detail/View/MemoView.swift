@@ -41,20 +41,22 @@ extension MemoView {
             saveMemo = true
             isMemoPresented = false
         }
-        .foregroundColor(.white)
-        .font(.headline)
         .padding()
-        .background(Color.green.cornerRadius(10))
+        .foregroundColor(.white)
+        .font(.system(size: 15, weight: .bold, design: .default))
+        .background(.green)
+        .cornerRadius(20)
     }
     
     var dismissButton: some View {
         Button("dismiss") {
             isMemoPresented = false
         }
-        .foregroundColor(.white)
-        .font(.headline)
         .padding()
-        .background(Color.red.cornerRadius(10))
+        .foregroundColor(.white)
+        .font(.system(size: 15, weight: .bold, design: .default))
+        .background(.blue)
+        .cornerRadius(20)
     }
 }
 

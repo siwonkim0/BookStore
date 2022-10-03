@@ -17,9 +17,10 @@ protocol CoreDataManagerType {
 }
 
 class CoreDataManager: CoreDataManagerType {
+    static let persistentContainer = CoreDataManager()
     private let container: NSPersistentContainer
     
-    init() {
+    private init() {
         self.container = NSPersistentContainer(name: "BookContainer")
         self.container.loadPersistentStores { description, error in
             if let error = error {

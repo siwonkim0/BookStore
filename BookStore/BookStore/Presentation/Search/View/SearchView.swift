@@ -48,7 +48,7 @@ private extension SearchView {
                         book: book,
                         repository: BookDetailRepository(
                             urlSessionManager: URLSessionManager(),
-                            coreDataManager: CoreDataManager()
+                            coreDataManager: CoreDataManager.persistentContainer
                         )))
             } label: {
                 SearchRow(book: book)
@@ -99,6 +99,6 @@ private extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: SearchViewModel(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager())))
+        SearchView(viewModel: SearchViewModel(searchRepository: SearchRepository(urlSessionManager: URLSessionManager(), coreDataManager: CoreDataManager.persistentContainer)))
     }
 }
