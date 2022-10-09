@@ -33,20 +33,17 @@ class CoreDataManager: CoreDataManagerType {
     }
 
     func fetch(request: NSFetchRequest<BookEntity>) -> AnyPublisher<[BookEntity], Error> {
-        return Deferred { () -> Future<[BookEntity], Error> in
+        return Future<[BookEntity], Error> { promise in
             guard let entities = try? self.container.viewContext.fetch(request),
                   entities.count != 0 else {
-                return Future<[BookEntity], Error> { promise in
-                    promise(.failure(CoreDataError.invalidData))
-                }
+                promise(.failure(CoreDataError.invalidData))
+
+                return
             }
-            return Future { promise in
-                promise(.success(entities))
-            }
+            return promise(.success(entities))
         }
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
-
     }
     
     func add(bookList: BookList, keyword: String) throws {
