@@ -62,6 +62,10 @@ final class SearchRepository: SearchRepositoryType {
         let keywordPredicate = NSPredicate(format: "searchKeyword = %@", keyword)
         let pagePredicate = NSPredicate(format: "page = %@", page)
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [keywordPredicate, pagePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: "sortNumber", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
 
         return coreDataManager.fetch(request: request)
             .map { items in

@@ -8,12 +8,13 @@
         <attribute name="page" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="searchKeyword" optional="YES" attributeType="String"/>
+        <attribute name="sortNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="totalPage" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BookEntity" positionX="-63" positionY="-18" width="128" height="194"/>
+        <element name="BookEntity" positionX="-63" positionY="-18" width="128" height="209"/>
     </elements>
 </model>

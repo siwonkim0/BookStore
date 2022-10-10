@@ -37,7 +37,6 @@ class CoreDataManager: CoreDataManagerType {
             guard let entities = try? self.container.viewContext.fetch(request),
                   entities.count != 0 else {
                 promise(.failure(CoreDataError.invalidData))
-
                 return
             }
             return promise(.success(entities))
@@ -47,6 +46,7 @@ class CoreDataManager: CoreDataManagerType {
     }
     
     func add(bookList: BookList, keyword: String) throws {
+        var sortNumber = 1
         bookList.books.forEach { book in
             let bookEntity = BookEntity(context: container.viewContext)
             bookEntity.id = book.id
@@ -58,6 +58,9 @@ class CoreDataManager: CoreDataManagerType {
             bookEntity.url = book.url
             bookEntity.searchKeyword = keyword
             bookEntity.page = bookList.currentPage
+            bookEntity.sortNumber = Int64(sortNumber)
+            sortNumber += 1
+            print(sortNumber)
         }
         do {
             try save()
