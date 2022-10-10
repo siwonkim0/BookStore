@@ -60,7 +60,6 @@ class CoreDataManager: CoreDataManagerType {
             bookEntity.page = bookList.currentPage
             bookEntity.sortNumber = Int64(sortNumber)
             sortNumber += 1
-            print(sortNumber)
         }
         do {
             try save()

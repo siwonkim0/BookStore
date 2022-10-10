@@ -43,6 +43,6 @@ final class BookDetailRepository {
                 return book
             }
             .eraseToAnyPublisher()
-        
+
     }
 }
