@@ -276,7 +276,7 @@
 		EA4823D628D87516007ED9B4 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				EA4823E728D87757007ED9B4 /* DTO */,
+				EA4823E728D87757007ED9B4 /* Entity */,
 				EA4823E428D876D3007ED9B4 /* Request */,
 				EA4823E328D875F9007ED9B4 /* Error */,
 				EA4823DE28D875C2007ED9B4 /* Support */,
@@ -320,13 +320,13 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
-		EA4823E728D87757007ED9B4 /* DTO */ = {
+		EA4823E728D87757007ED9B4 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				EA4823E828D8776A007ED9B4 /* BookListDTO.swift */,
 				EA0FB1E828E82D5600245640 /* BookDetailDTO.swift */,
 			);
-			name = DTO;
+			name = Entity;
 			path = "ㅇ썌";
 			sourceTree = "<group>";
 		};
